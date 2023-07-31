@@ -1,0 +1,115 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/typescript",
+    "plugin:react/jsx-runtime",
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "import",
+    "jsx-a11y",
+    "react-hooks",
+    "prettier",
+    "unused-imports",
+    "typescript-sort-keys"
+  ],
+  "rules": {
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/explicit-member-accessibility": 0,
+    "@typescript-eslint/indent": 0,
+    "@typescript-eslint/member-delimiter-style": 0,
+    "@typescript-eslint/member-ordering": ["error", { "default": ["field", "method"] }],
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-use-before-define": 0,
+    "@typescript-eslint/no-var-requires": 0,
+    "@typescript-eslint/semi": [2, "never"],
+    "max-params": ["error", 3],
+    "import/extensions": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/no-unresolved": 0,
+    "import/prefer-default-export": 0,
+    "linebreak-style": 0,
+    "no-param-reassign": 0,
+    "react-hooks/exhaustive-deps": 0,
+    "react-hooks/rules-of-hooks": "error",
+    "react/display-name": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    "react/prop-types": 0,
+    "react/react-in-jsx-scope": 0,
+    "react/require-default-props": [0],
+    "semi": "off",
+    "sort-keys": ["error", "asc", { "caseSensitive": true, "natural": false, "minKeys": 4 }],
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": "error",
+    "no-console": "error",
+    "prettier/prettier": [
+      "warn",
+      {
+        "endOfLine": "auto",
+        "singleQuote": true,
+        "semi": false
+      }
+    ],
+    "react/jsx-sort-props": [
+      1,
+      {
+        "callbacksLast": true,
+        "shorthandFirst": true,
+        "shorthandLast": true,
+        "multiline": "first",
+        "ignoreCase": false
+      }
+    ],
+    "import/order": [
+      "error",
+      {
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "newlines-between": "always",
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+        "pathGroups": [
+          {
+            "pattern": "{react,react-dom,react-router-dom,connected-react-router,@reduxjs/toolkit,react-redux,reselect,prop-types,@testing-library/react,@testing-library/react-hooks,@testing-library/jest-dom}",
+            "group": "builtin",
+            "position": "before"
+          },
+          {
+            "pattern": "~/**",
+            "group": "internal"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["builtin"]
+      }
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }
+    ],
+    "typescript-sort-keys/interface": [
+      "error",
+      "asc",
+      { "caseSensitive": true, "natural": false, "requiredFirst": false }
+    ]
+  }
+}

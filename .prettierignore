@@ -1,0 +1,8 @@
+_infra
+coverage
+dist
+docs
+node_modules
+public
+yarn.lock
+**/*.json
