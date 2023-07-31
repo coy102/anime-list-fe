@@ -7,11 +7,7 @@ module.exports = {
   },
   automock: false,
   rootDir: '../',
-  coveragePathIgnorePatterns: [
-    '<rootDir>/node_modules',
-    '<rootDir>/src/gqlcodegen',
-    '<rootDir>/tests',
-  ],
+  coveragePathIgnorePatterns: ['<rootDir>/node_modules', '<rootDir>/tests'],
   coverageThreshold: {
     global: {
       statements: 50,
