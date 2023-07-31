@@ -1,0 +1,23 @@
+import { Link } from 'react-router-dom'
+
+import { Container } from '@mui/material'
+import { styled } from '@mui/material/styles'
+
+export const NavContainer = styled(Container)({
+  display: 'flex',
+  alignItems: 'center',
+})
+
+export const ImgWrapper = styled('div')({
+  flexGrow: 1,
+})
+
+export const MenuWrapper = styled('div')({
+  justifyContent: 'flex-end',
+})
+
+export const MenuLink = styled(Link)(({ theme }) => ({
+  color: theme.palette.common.white,
+  fontWeight: 'bold',
+  textDecoration: 'none',
+}))
