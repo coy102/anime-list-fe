@@ -3,32 +3,35 @@ import * as Types from '../types'
 import { gql } from '@apollo/client'
 import * as Apollo from '@apollo/client'
 const defaultOptions = {}
-export type PageInfoFragmentFragment = Pick<
+export type PageInfoFragment = Pick<
   Types.PageInfo,
   'total' | 'currentPage' | 'lastPage' | 'hasNextPage' | 'perPage'
 >
 
-export type MediaCommonFragmentFragment = Pick<
+export type MediaCommonFragment = Pick<
   Types.Media,
-  'id' | 'genres' | 'season' | 'seasonYear' | 'episodes' | 'averageScore' | 'bannerImage'
-> & { title?: Types.Maybe<Pick<Types.MediaTitle, 'romaji'>> }
+  'id' | 'genres' | 'season' | 'seasonYear' | 'episodes' | 'averageScore'
+> & {
+  title?: Types.Maybe<Pick<Types.MediaTitle, 'romaji'>>
+  coverImage?: Types.Maybe<Pick<Types.MediaCoverImage, 'large' | 'color'>>
+}
 
-export type GetAnimeListQueryVariables = Types.Exact<{
+export type AnimeListQueryVariables = Types.Exact<{
   page?: Types.Maybe<Types.Scalars['Int']>
   perPage?: Types.Maybe<Types.Scalars['Int']>
   sort?: Types.Maybe<Array<Types.Maybe<Types.MediaSort>> | Types.Maybe<Types.MediaSort>>
   search?: Types.Maybe<Types.Scalars['String']>
 }>
 
-export type GetAnimeListQuery = {
-  Page?: Types.Maybe<{
-    pageInfo?: Types.Maybe<PageInfoFragmentFragment>
-    media?: Types.Maybe<Array<Types.Maybe<MediaCommonFragmentFragment>>>
+export type AnimeListQuery = {
+  animeList?: Types.Maybe<{
+    pageInfo?: Types.Maybe<PageInfoFragment>
+    items?: Types.Maybe<Array<Types.Maybe<MediaCommonFragment>>>
   }>
 }
 
-export const PageInfoFragmentFragmentDoc = gql`
-  fragment PageInfoFragment on PageInfo {
+export const PageInfoFragmentDoc = gql`
+  fragment PageInfo on PageInfo {
     total
     currentPage
     lastPage
@@ -36,8 +39,8 @@ export const PageInfoFragmentFragmentDoc = gql`
     perPage
   }
 `
-export const MediaCommonFragmentFragmentDoc = gql`
-  fragment MediaCommonFragment on Media {
+export const MediaCommonFragmentDoc = gql`
+  fragment MediaCommon on Media {
     id
     title {
       romaji
@@ -47,35 +50,38 @@ export const MediaCommonFragmentFragmentDoc = gql`
     seasonYear
     episodes
     averageScore
-    bannerImage
+    coverImage {
+      large
+      color
+    }
   }
 `
-export const GetAnimeListDocument = gql`
-  query getAnimeList($page: Int, $perPage: Int, $sort: [MediaSort], $search: String) {
-    Page(page: $page, perPage: $perPage) {
+export const AnimeListDocument = gql`
+  query animeList($page: Int, $perPage: Int, $sort: [MediaSort], $search: String) {
+    animeList: Page(page: $page, perPage: $perPage) {
       pageInfo {
-        ...PageInfoFragment
+        ...PageInfo
       }
-      media(sort: $sort, search: $search) {
-        ...MediaCommonFragment
+      items: media(sort: $sort, search: $search) {
+        ...MediaCommon
       }
     }
   }
-  ${PageInfoFragmentFragmentDoc}
-  ${MediaCommonFragmentFragmentDoc}
+  ${PageInfoFragmentDoc}
+  ${MediaCommonFragmentDoc}
 `
 
 /**
- * __useGetAnimeListQuery__
+ * __useAnimeListQuery__
  *
- * To run a query within a React component, call `useGetAnimeListQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAnimeListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useAnimeListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAnimeListQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetAnimeListQuery({
+ * const { data, loading, error } = useAnimeListQuery({
  *   variables: {
  *      page: // value for 'page'
  *      perPage: // value for 'perPage'
@@ -84,23 +90,17 @@ export const GetAnimeListDocument = gql`
  *   },
  * });
  */
-export function useGetAnimeListQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetAnimeListQuery, GetAnimeListQueryVariables>,
+export function useAnimeListQuery(
+  baseOptions?: Apollo.QueryHookOptions<AnimeListQuery, AnimeListQueryVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetAnimeListQuery, GetAnimeListQueryVariables>(
-    GetAnimeListDocument,
-    options,
-  )
+  return Apollo.useQuery<AnimeListQuery, AnimeListQueryVariables>(AnimeListDocument, options)
 }
-export function useGetAnimeListLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetAnimeListQuery, GetAnimeListQueryVariables>,
+export function useAnimeListLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<AnimeListQuery, AnimeListQueryVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetAnimeListQuery, GetAnimeListQueryVariables>(
-    GetAnimeListDocument,
-    options,
-  )
+  return Apollo.useLazyQuery<AnimeListQuery, AnimeListQueryVariables>(AnimeListDocument, options)
 }
-export type GetAnimeListQueryHookResult = ReturnType<typeof useGetAnimeListQuery>
-export type GetAnimeListLazyQueryHookResult = ReturnType<typeof useGetAnimeListLazyQuery>
+export type AnimeListQueryHookResult = ReturnType<typeof useAnimeListQuery>
+export type AnimeListLazyQueryHookResult = ReturnType<typeof useAnimeListLazyQuery>

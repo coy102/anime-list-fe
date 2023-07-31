@@ -1,15 +1,14 @@
-import { useEffect } from 'react'
-
-import { useGetAnimeListLazyQuery } from '~/gqlcodegen/hooks/anime'
+import CardList from './CardList'
+import useCustom from './hooks'
 
 const BrowseAnime = () => {
-  const [getAnimeQuery] = useGetAnimeListLazyQuery()
+  const { data } = useCustom()
 
-  useEffect(() => {
-    getAnimeQuery()
-  }, [])
-
-  return <>Browseanime</>
+  return (
+    <>
+      <CardList anime={data.anime} />
+    </>
+  )
 }
 
 export default BrowseAnime

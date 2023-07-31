@@ -1,7 +1,8 @@
 import { Suspense, memo } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
-import { Container } from '@mui/material'
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
 
 import Loading from '~/components/Loading'
 import publicRoute from '~/routes/publicRoute'
@@ -13,14 +14,16 @@ const PublicLayout = () => {
     <>
       <Navbar />
       <Container>
-        <Suspense fallback={<Loading loading />}>
-          <Routes>
-            {publicRoute.map(({ id, path, component: Component }) => (
-              <Route element={Component} key={id} path={path} />
-            ))}
-            <Route element={<Navigate to="/" />} path="*" />
-          </Routes>
-        </Suspense>
+        <Box my={5}>
+          <Suspense fallback={<Loading loading />}>
+            <Routes>
+              {publicRoute.map(({ id, path, component: Component }) => (
+                <Route element={Component} key={id} path={path} />
+              ))}
+              <Route element={<Navigate to="/" />} path="*" />
+            </Routes>
+          </Suspense>
+        </Box>
       </Container>
     </>
   )

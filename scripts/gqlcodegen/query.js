@@ -41,6 +41,7 @@ const codegenOptions = async () => {
           withMutationFn: false,
           withResultType: false,
           withMutationOptionsType: false,
+          maybeValue: 'T',
         },
       },
     },
