@@ -1,0 +1,31 @@
+fragment PageInfoFragment on PageInfo {
+  total
+  currentPage
+  lastPage
+  hasNextPage
+  perPage
+}
+
+fragment MediaCommonFragment on Media {
+  id
+  title {
+    romaji
+  }
+  genres
+  season
+  seasonYear
+  episodes
+  averageScore
+  bannerImage
+}
+
+query getAnimeList($page: Int, $perPage: Int, $sort: [MediaSort], $search: String) {
+  Page(page: $page, perPage: $perPage) {
+    pageInfo {
+      ...PageInfoFragment
+    }
+    media(sort: $sort, search: $search) {
+      ...MediaCommonFragment
+    }
+  }
+}

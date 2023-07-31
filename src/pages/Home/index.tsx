@@ -1,5 +1,5 @@
-import Home from '~/modules/Home'
+import BrowseAnime from '~/modules/BrowseAnime'
 
-const HomePage = () => <Home />
+const HomePage = () => <BrowseAnime />
 
 export default HomePage

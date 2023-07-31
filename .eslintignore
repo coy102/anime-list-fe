@@ -4,3 +4,4 @@ dist
 node_modules
 scripts
 lint-staged.config.js
+src/gqlcodegen
