@@ -1,7 +1,6 @@
-import { AnimeListQueryVariables } from '~/gqlcodegen/hooks/anime'
 import { MediaSort } from '~/gqlcodegen/types'
 
-export const defaultFilterAnimeList: AnimeListQueryVariables = {
+export const defaultFilterAnimeList = {
   page: 1,
   perPage: 20,
   search: null,

@@ -5,24 +5,35 @@ import { AnimeListQuery, useAnimeListLazyQuery } from '~/gqlcodegen/hooks/anime'
 import { defaultFilterAnimeList } from './helper'
 
 const useCustom = () => {
+  const [filter, setFilter] = useState(defaultFilterAnimeList)
   const [anime, setAnime] = useState<AnimeListQuery['animeList']>({
     items: [],
     pageInfo: {},
   })
-  const [filter] = useState(defaultFilterAnimeList)
 
-  const [animeListLazyQuery, { loading }] = useAnimeListLazyQuery()
+  const [animeListLazyQuery, { networkStatus }] = useAnimeListLazyQuery({
+    fetchPolicy: 'cache-first',
+  })
 
   const handleLoadAnimeList = useCallback(async () => {
     const { data } = await animeListLazyQuery({
-      fetchPolicy: 'cache-and-network',
       variables: filter,
     })
 
     if (data) {
-      setAnime(data.animeList)
+      setAnime((prev) => ({
+        ...prev,
+        items: [...(prev?.items || []), ...(data?.animeList?.items || [])],
+      }))
     }
   }, [filter])
+
+  const handeLoadMore = useCallback(() => {
+    setFilter((prev) => ({
+      ...prev,
+      page: prev.page + 1,
+    }))
+  }, [])
 
   useEffect(() => {
     handleLoadAnimeList()
@@ -31,7 +42,10 @@ const useCustom = () => {
   return {
     data: {
       anime,
-      loading,
+      networkStatus,
+    },
+    methods: {
+      handeLoadMore,
     },
   }
 }

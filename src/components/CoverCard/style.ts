@@ -1,20 +1,27 @@
 import { Link } from 'react-router-dom'
 
+import { Fab } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import { fontSize } from '~/styles/theme'
 
-export const ImageWrapperStyled = styled(Link)(() => ({
-  position: 'relative',
+export const LinkStyled = styled(Link)(() => ({
   textDecoration: 'none',
   color: 'inherit',
 }))
 
-export const HeadWrapperStyled = styled('div')(({ theme }) => ({
+export const ImageWrapperStyled = styled('div')(() => ({
+  position: 'relative',
+  height: '100%',
+}))
+
+export const HeadWrapperStyled = styled('div')(() => ({
   display: 'flex',
-  padding: theme.spacing(2),
+  justifyContent: 'flex-end',
   position: 'absolute',
   top: 0,
+  width: '100%',
+  zIndex: 1,
 }))
 
 export const TitleWrapperStyled = styled('div')(({ theme }) => ({
@@ -31,4 +38,10 @@ export const TitleWrapperStyled = styled('div')(({ theme }) => ({
 export const TitleStyled = styled('span')(() => ({
   fontSize: fontSize[12],
   fontWeight: 'bold',
+}))
+
+export const IconButtonStyled = styled(Fab)(({ theme }) => ({
+  backgroundColor: theme.palette.background.paper,
+  color: theme.palette.primary.main,
+  transform: 'scale(0.8)',
 }))
