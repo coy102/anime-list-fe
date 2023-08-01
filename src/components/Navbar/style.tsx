@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import { Container } from '@mui/material'
+import { AppBar, Container } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 export const NavContainer = styled(Container)({
@@ -21,3 +21,9 @@ export const MenuLink = styled(Link)(({ theme }) => ({
   fontWeight: 'bold',
   textDecoration: 'none',
 }))
+
+export const AppbarStyled = styled(AppBar)({
+  maxWidth: 500,
+  margin: '0px auto',
+  right: 'unset',
+})

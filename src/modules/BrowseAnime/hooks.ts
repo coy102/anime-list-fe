@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { AnimeListQuery, useAnimeListLazyQuery } from '~/gqlcodegen/hooks/anime'
+import { debounce } from '~/utils/not-lodash'
 
 import { defaultFilterAnimeList } from './helper'
 
@@ -20,12 +21,19 @@ const useCustom = () => {
       variables: filter,
     })
 
-    if (data) {
-      setAnime((prev) => ({
-        ...prev,
-        items: [...(prev?.items || []), ...(data?.animeList?.items || [])],
-      }))
+    if (!data) return
+
+    const response = data.animeList
+
+    if (response?.pageInfo?.currentPage === 1) {
+      setAnime(response)
+      return
     }
+
+    setAnime((prev) => ({
+      pageInfo: response?.pageInfo || {},
+      items: [...(prev?.items || []), ...(response?.items || [])],
+    }))
   }, [filter])
 
   const handeLoadMore = useCallback(() => {
@@ -35,8 +43,26 @@ const useCustom = () => {
     }))
   }, [])
 
+  // handle fetch more pokemon infinite scroll logic
+  const handleScroll = debounce(() => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+      handeLoadMore()
+    }
+  }, 500)
+
   useEffect(() => {
     handleLoadAnimeList()
+  }, [filter])
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+
+    if (anime?.items?.length === 0) {
+      handleLoadAnimeList()
+      return
+    }
+
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [filter])
 
   return {
