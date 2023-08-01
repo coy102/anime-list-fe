@@ -1,1 +1,6 @@
 export const AUTOHIDE_DURATION_SNACKBAR = 5000
+
+export const COVER_SIZE = {
+  HEIGHT: 247,
+  WIDTH: 167,
+}

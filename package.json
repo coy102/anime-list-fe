@@ -43,6 +43,7 @@
     "react-router-config": "^5.1.1",
     "react-router-dom": "^6.3.0",
     "regenerator-runtime": "^0.13.9",
+    "tinycolor2": "^1.6.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {

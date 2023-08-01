@@ -42,8 +42,6 @@ const ReloadPrompt = () => {
     },
   })
 
-  console.log('needRefresh', needRefresh)
-
   const close = () => {
     setNeedRefresh(false)
   }

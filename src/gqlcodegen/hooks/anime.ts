@@ -10,10 +10,10 @@ export type PageInfoFragment = Pick<
 
 export type MediaCommonFragment = Pick<
   Types.Media,
-  'id' | 'genres' | 'season' | 'seasonYear' | 'episodes' | 'averageScore'
+  'id' | 'genres' | 'season' | 'seasonYear' | 'episodes' | 'averageScore' | 'description'
 > & {
   title?: Types.Maybe<Pick<Types.MediaTitle, 'romaji'>>
-  coverImage?: Types.Maybe<Pick<Types.MediaCoverImage, 'large' | 'color'>>
+  coverImage?: Types.Maybe<Pick<Types.MediaCoverImage, 'color' | 'large'>>
 }
 
 export type AnimeListQueryVariables = Types.Exact<{
@@ -51,9 +51,10 @@ export const MediaCommonFragmentDoc = gql`
     episodes
     averageScore
     coverImage {
-      large
       color
+      large
     }
+    description
   }
 `
 export const AnimeListDocument = gql`

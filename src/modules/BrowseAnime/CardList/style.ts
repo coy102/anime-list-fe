@@ -1,19 +1,34 @@
-import Card from '@mui/material/Card'
+import { Link } from 'react-router-dom'
+
 import { styled } from '@mui/material/styles'
 
-export const CardStyled = styled(Card)(({ theme }) => ({
-  border: `1px solid ${theme.palette.divider}`,
+import { fontSize } from '~/styles/theme'
+
+export const ImageWrapperStyled = styled(Link)(() => ({
+  position: 'relative',
+  textDecoration: 'none',
+  color: 'inherit',
 }))
 
-export const CardGenreStyled = styled('div')(({ theme }) => ({
-  borderBottom: `1px solid ${theme.palette.divider}`,
+export const HeadWrapperStyled = styled('div')(({ theme }) => ({
   display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
-  padding: theme.spacing(1),
+  padding: theme.spacing(2),
+  position: 'absolute',
+  top: 0,
 }))
 
-export const CardContentStyled = styled('div')(() => ({
-  display: 'flex',
-  flexDirection: 'row',
+export const TitleWrapperStyled = styled('div')(({ theme }) => ({
+  background: 'rgba(0, 0, 0, 0.5)',
+  bottom: 0,
+  overflow: 'hidden',
+  padding: theme.spacing(2),
+  position: 'absolute',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+  width: '100%',
+}))
+
+export const TitleStyled = styled('span')(() => ({
+  fontSize: fontSize[12],
+  fontWeight: 'bold',
 }))

@@ -17,9 +17,10 @@ fragment MediaCommon on Media {
   episodes
   averageScore
   coverImage {
-    large
     color
+    large
   }
+  description
 }
 
 query animeList($page: Int, $perPage: Int, $sort: [MediaSort], $search: String) {
