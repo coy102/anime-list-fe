@@ -1,7 +1,22 @@
-import blueGrey from '@mui/material/colors/blueGrey'
-import pink from '@mui/material/colors/pink'
-import createTheme from '@mui/material/styles/createTheme'
-import responsiveFontSizes from '@mui/material/styles/responsiveFontSizes'
+import { createTheme, responsiveFontSizes } from '@mui/material/styles'
+
+export const colors = {
+  primary: {
+    100: '#00bcd4',
+    200: '#47c4d9',
+    300: '#67cbde',
+  },
+  dark: {
+    100: '#121212',
+    200: '#282828',
+    300: '#3f3f3f',
+  },
+  mixed: {
+    100: '#8f9296',
+    200: '#76797e',
+    300: '#5d6066',
+  },
+}
 
 export const fontSize = {
   10: '0.625rem',
@@ -31,16 +46,20 @@ const theme = createTheme({
         },
       },
     },
+    MuiCard: {
+      defaultProps: {
+        elevation: 1,
+      },
+    },
   },
   palette: {
-    primary: {
-      main: blueGrey[900],
-    },
-    secondary: {
-      main: pink[500],
-    },
     background: {
-      default: blueGrey[100],
+      default: colors.dark[100],
+      paper: colors.dark[100],
+    },
+    mode: 'dark',
+    primary: {
+      main: colors.primary[100],
     },
   },
   // Set baseline width to 1920

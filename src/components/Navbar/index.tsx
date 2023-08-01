@@ -1,13 +1,12 @@
 import { memo } from 'react'
 
-import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 
-import { ImgWrapper, MenuLink, MenuWrapper, NavContainer } from './style'
+import { AppbarStyled, ImgWrapper, MenuLink, MenuWrapper, NavContainer } from './style'
 
 const Navbar = () => (
-  <AppBar data-testid="navbar" position="static">
-    <Toolbar>
+  <AppbarStyled data-testid="navbar" position="fixed">
+    <Toolbar variant="dense">
       <NavContainer>
         <ImgWrapper>
           <img alt="logo" data-testid="logo" src="/images/anime-logo-min.png" width={50} />
@@ -19,7 +18,7 @@ const Navbar = () => (
         </MenuWrapper>
       </NavContainer>
     </Toolbar>
-  </AppBar>
+  </AppbarStyled>
 )
 
 export default memo(Navbar)

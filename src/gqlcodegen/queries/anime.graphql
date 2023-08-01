@@ -1,4 +1,4 @@
-fragment PageInfoFragment on PageInfo {
+fragment PageInfo on PageInfo {
   total
   currentPage
   lastPage
@@ -6,7 +6,7 @@ fragment PageInfoFragment on PageInfo {
   perPage
 }
 
-fragment MediaCommonFragment on Media {
+fragment MediaCommon on Media {
   id
   title {
     romaji
@@ -16,16 +16,20 @@ fragment MediaCommonFragment on Media {
   seasonYear
   episodes
   averageScore
-  bannerImage
+  coverImage {
+    color
+    large
+  }
+  description
 }
 
-query getAnimeList($page: Int, $perPage: Int, $sort: [MediaSort], $search: String) {
-  Page(page: $page, perPage: $perPage) {
+query animeList($page: Int, $perPage: Int, $sort: [MediaSort], $search: String) {
+  animeList: Page(page: $page, perPage: $perPage) {
     pageInfo {
-      ...PageInfoFragment
+      ...PageInfo
     }
-    media(sort: $sort, search: $search) {
-      ...MediaCommonFragment
+    items: media(sort: $sort, search: $search) {
+      ...MediaCommon
     }
   }
 }
