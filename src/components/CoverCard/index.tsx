@@ -22,10 +22,11 @@ interface Props {
   coverImage: string
   genres: any[]
   index: number
+  link: string
   title: string
 }
 
-const CoverCard = ({ color, coverImage, genres, index, title }: Props) => {
+const CoverCard = ({ color, coverImage, genres, index, link, title }: Props) => {
   return (
     <ImageWrapperStyled>
       <HeadWrapperStyled>
@@ -33,7 +34,7 @@ const CoverCard = ({ color, coverImage, genres, index, title }: Props) => {
           <FavoriteBorderIcon sx={{ p: 0 }} />
         </IconButtonStyled>
       </HeadWrapperStyled>
-      <LinkStyled to="/">
+      <LinkStyled to={link}>
         <LazyLoadImage
           alt=""
           data-test-id={`anime-cover-${index}`}

@@ -20,6 +20,7 @@ const BrowseAnime = () => {
               coverImage={item?.coverImage?.large || ''}
               genres={item?.genres || []}
               index={i}
+              link={`/anime/${item?.id}`}
               title={item?.title?.romaji || ''}
             />
           </Grid>

@@ -4430,10 +4430,12 @@ export type PageInfoFragment = Pick<
   'total' | 'currentPage' | 'lastPage' | 'hasNextPage' | 'perPage'
 >
 
-export type MediaCommonFragment = Pick<
-  Types.Media,
-  'id' | 'genres' | 'season' | 'seasonYear' | 'episodes' | 'averageScore' | 'description'
-> & {
+export type MediaCommonFragment = Pick<Types.Media, 'id' | 'genres'> & {
+  title: Types.Maybe<Pick<Types.MediaTitle, 'romaji'>>
+  coverImage: Types.Maybe<Pick<Types.MediaCoverImage, 'color' | 'large'>>
+}
+
+export type MediaDetailFragment = Pick<Types.Media, 'id' | 'genres'> & {
   title: Types.Maybe<Pick<Types.MediaTitle, 'romaji'>>
   coverImage: Types.Maybe<Pick<Types.MediaCoverImage, 'color' | 'large'>>
 }
@@ -4452,6 +4454,116 @@ export type AnimeListQuery = {
   }>
 }
 
+export type AnimeDetailQueryVariables = Types.Exact<{
+  id: Types.Maybe<Types.Scalars['Int']>
+  type: Types.Maybe<Types.MediaType>
+  isAdult: Types.Maybe<Types.Scalars['Boolean']>
+}>
+
+export type AnimeDetailQuery = {
+  animeDetail: Types.Maybe<
+    Pick<
+      Types.Media,
+      | 'id'
+      | 'description'
+      | 'season'
+      | 'seasonYear'
+      | 'type'
+      | 'format'
+      | 'status'
+      | 'episodes'
+      | 'duration'
+      | 'chapters'
+      | 'volumes'
+      | 'genres'
+      | 'source'
+      | 'meanScore'
+      | 'averageScore'
+      | 'popularity'
+    > & {
+      title: Types.Maybe<Pick<Types.MediaTitle, 'userPreferred' | 'romaji' | 'english' | 'native'>>
+      coverImage: Types.Maybe<Pick<Types.MediaCoverImage, 'large'>>
+      startDate: Types.Maybe<Pick<Types.FuzzyDate, 'year' | 'month' | 'day'>>
+      endDate: Types.Maybe<Pick<Types.FuzzyDate, 'year' | 'month' | 'day'>>
+      relations: Types.Maybe<{
+        edges: Types.Maybe<
+          Array<
+            Types.Maybe<
+              Pick<Types.MediaEdge, 'id' | 'relationType'> & {
+                node: Types.Maybe<
+                  Pick<Types.Media, 'id' | 'format' | 'type' | 'status' | 'bannerImage'> & {
+                    title: Types.Maybe<Pick<Types.MediaTitle, 'userPreferred'>>
+                    coverImage: Types.Maybe<Pick<Types.MediaCoverImage, 'large'>>
+                  }
+                >
+              }
+            >
+          >
+        >
+      }>
+      characterPreview: Types.Maybe<{
+        edges: Types.Maybe<
+          Array<
+            Types.Maybe<
+              Pick<Types.CharacterEdge, 'id' | 'role' | 'name'> & {
+                voiceActors: Types.Maybe<
+                  Array<
+                    Types.Maybe<
+                      Pick<Types.Staff, 'id'> & { language: Types.Staff['languageV2'] } & {
+                        name: Types.Maybe<Pick<Types.StaffName, 'userPreferred'>>
+                        image: Types.Maybe<Pick<Types.StaffImage, 'large'>>
+                      }
+                    >
+                  >
+                >
+                node: Types.Maybe<
+                  Pick<Types.Character, 'id'> & {
+                    name: Types.Maybe<Pick<Types.CharacterName, 'userPreferred'>>
+                    image: Types.Maybe<Pick<Types.CharacterImage, 'large'>>
+                  }
+                >
+              }
+            >
+          >
+        >
+      }>
+      studios: Types.Maybe<{
+        edges: Types.Maybe<
+          Array<
+            Types.Maybe<
+              Pick<Types.StudioEdge, 'isMain'> & {
+                node: Types.Maybe<Pick<Types.Studio, 'id' | 'name'>>
+              }
+            >
+          >
+        >
+      }>
+      recommendations: Types.Maybe<{
+        pageInfo: Types.Maybe<Pick<Types.PageInfo, 'total'>>
+        nodes: Types.Maybe<
+          Array<
+            Types.Maybe<
+              Pick<Types.Recommendation, 'id' | 'rating' | 'userRating'> & {
+                mediaRecommendation: Types.Maybe<
+                  Pick<Types.Media, 'id' | 'format' | 'type' | 'status' | 'bannerImage'> & {
+                    title: Types.Maybe<Pick<Types.MediaTitle, 'userPreferred'>>
+                    coverImage: Types.Maybe<Pick<Types.MediaCoverImage, 'large'>>
+                  }
+                >
+                user: Types.Maybe<
+                  Pick<Types.User, 'id' | 'name'> & {
+                    avatar: Types.Maybe<Pick<Types.UserAvatar, 'large'>>
+                  }
+                >
+              }
+            >
+          >
+        >
+      }>
+    }
+  >
+}
+
 export const PageInfoFragmentDoc = gql`
   fragment PageInfo on PageInfo {
     total
@@ -4468,15 +4580,23 @@ export const MediaCommonFragmentDoc = gql`
       romaji
     }
     genres
-    season
-    seasonYear
-    episodes
-    averageScore
     coverImage {
       color
       large
     }
-    description
+  }
+`
+export const MediaDetailFragmentDoc = gql`
+  fragment MediaDetail on Media {
+    id
+    title {
+      romaji
+    }
+    genres
+    coverImage {
+      color
+      large
+    }
   }
 `
 export const AnimeListDocument = gql`
@@ -4527,6 +4647,167 @@ export function useAnimeListLazyQuery(
 }
 export type AnimeListQueryHookResult = ReturnType<typeof useAnimeListQuery>
 export type AnimeListLazyQueryHookResult = ReturnType<typeof useAnimeListLazyQuery>
+export const AnimeDetailDocument = gql`
+  query animeDetail($id: Int, $type: MediaType, $isAdult: Boolean) {
+    animeDetail: Media(id: $id, type: $type, isAdult: $isAdult) {
+      id
+      title {
+        userPreferred
+        romaji
+        english
+        native
+      }
+      coverImage {
+        large
+      }
+      startDate {
+        year
+        month
+        day
+      }
+      endDate {
+        year
+        month
+        day
+      }
+      description
+      season
+      seasonYear
+      type
+      format
+      status(version: 2)
+      episodes
+      duration
+      chapters
+      volumes
+      genres
+      source(version: 3)
+      meanScore
+      averageScore
+      popularity
+      relations {
+        edges {
+          id
+          relationType(version: 2)
+          node {
+            id
+            title {
+              userPreferred
+            }
+            format
+            type
+            status(version: 2)
+            bannerImage
+            coverImage {
+              large
+            }
+          }
+        }
+      }
+      characterPreview: characters(perPage: 6, sort: [ROLE, RELEVANCE, ID]) {
+        edges {
+          id
+          role
+          name
+          voiceActors(language: JAPANESE, sort: [RELEVANCE, ID]) {
+            id
+            name {
+              userPreferred
+            }
+            language: languageV2
+            image {
+              large
+            }
+          }
+          node {
+            id
+            name {
+              userPreferred
+            }
+            image {
+              large
+            }
+          }
+        }
+      }
+      studios {
+        edges {
+          isMain
+          node {
+            id
+            name
+          }
+        }
+      }
+      recommendations(perPage: 7, sort: [RATING_DESC, ID]) {
+        pageInfo {
+          total
+        }
+        nodes {
+          id
+          rating
+          userRating
+          mediaRecommendation {
+            id
+            title {
+              userPreferred
+            }
+            format
+            type
+            status(version: 2)
+            bannerImage
+            coverImage {
+              large
+            }
+          }
+          user {
+            id
+            name
+            avatar {
+              large
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
+/**
+ * __useAnimeDetailQuery__
+ *
+ * To run a query within a React component, call `useAnimeDetailQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAnimeDetailQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAnimeDetailQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      type: // value for 'type'
+ *      isAdult: // value for 'isAdult'
+ *   },
+ * });
+ */
+export function useAnimeDetailQuery(
+  baseOptions?: Apollo.QueryHookOptions<AnimeDetailQuery, AnimeDetailQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<AnimeDetailQuery, AnimeDetailQueryVariables>(AnimeDetailDocument, options)
+}
+export function useAnimeDetailLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<AnimeDetailQuery, AnimeDetailQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<AnimeDetailQuery, AnimeDetailQueryVariables>(
+    AnimeDetailDocument,
+    options,
+  )
+}
+export type AnimeDetailQueryHookResult = ReturnType<typeof useAnimeDetailQuery>
+export type AnimeDetailLazyQueryHookResult = ReturnType<typeof useAnimeDetailLazyQuery>
 
 export type ResolverTypeWrapper<T> = Promise<T> | T
 
