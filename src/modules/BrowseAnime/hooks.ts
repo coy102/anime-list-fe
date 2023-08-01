@@ -11,7 +11,7 @@ const useCustom = () => {
     pageInfo: {},
   })
 
-  const [animeListLazyQuery, { networkStatus }] = useAnimeListLazyQuery({
+  const [animeListLazyQuery, { loading }] = useAnimeListLazyQuery({
     fetchPolicy: 'cache-first',
   })
 
@@ -42,7 +42,7 @@ const useCustom = () => {
   return {
     data: {
       anime,
-      networkStatus,
+      loading,
     },
     methods: {
       handeLoadMore,

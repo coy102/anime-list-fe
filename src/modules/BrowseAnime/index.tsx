@@ -1,4 +1,3 @@
-import { NetworkStatus } from '@apollo/client'
 import { Grid } from '@mui/material'
 import LazyLoad from 'react-lazyload'
 import { Waypoint } from 'react-waypoint'
@@ -11,17 +10,15 @@ import useCustom from './hooks'
 
 const BrowseAnime = () => {
   const {
-    data: { anime, networkStatus },
+    data: { anime, loading },
     methods,
   } = useCustom()
-
-  // Render loading on first load
 
   return (
     <>
       <Grid container spacing={5}>
         {anime?.items?.map((item, i) => (
-          <Grid item data-test-id={`anime-card-${i}`} key={`card-${i}`} md={2} xs={6}>
+          <Grid item data-test-id={`anime-card-${i}`} key={`card-${i}`} xs={6}>
             <LazyLoad debounce={300} placeholder={<CoverSkeleton />}>
               <CoverCard
                 color={item?.coverImage?.color || ''}
@@ -33,12 +30,11 @@ const BrowseAnime = () => {
               {i === (anime?.items?.length || 0) - 1 && (
                 <Waypoint bottomOffset={0} onEnter={methods.handeLoadMore} />
               )}
-
-              {networkStatus === NetworkStatus.loading && <Loading loading />}
             </LazyLoad>
           </Grid>
         ))}
       </Grid>
+      <Loading loading={loading} />
     </>
   )
 }
