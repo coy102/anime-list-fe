@@ -8,10 +8,11 @@ export const isColorDark = (hexColor) => {
 
 export const generateAutoColor = (hexColor, percentage = 10) => {
   const color = tinycolor(hexColor)
-
+  // return lighten color when the hexColor is dark
   if (isColorDark(hexColor)) {
     return color.lighten(percentage).toHexString()
   }
 
+  // return darken color when the hexColor is light
   return color.darken(percentage).toHexString()
 }

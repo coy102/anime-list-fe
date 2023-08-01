@@ -10,11 +10,7 @@ import {
 } from '@mui/material'
 import { useRegisterSW } from 'virtual:pwa-register/react'
 
-import { formatDisplayDate } from '~/utils/date'
-
 const ReloadPrompt = () => {
-  // replaced dynamically
-  const buildDate = '__DATE__'
   // replaced dyanmicaly
   const reloadSW = '__RELOAD_SW__'
 
@@ -57,8 +53,7 @@ const ReloadPrompt = () => {
         <DialogTitle>Update Application</DialogTitle>
         <DialogContent>
           <DialogContentText id="update-app-dialog-description">
-            There is a new version available ({formatDisplayDate(buildDate, 'DD/MM/YYYY - hh:mm')}).
-            Do you want to reload page to update?
+            There is a new version available. Do you want to reload page to update?
             <br />
             If you choose Update Later, the application will automatically update if you close the
             window.

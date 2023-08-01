@@ -1,6 +1,4 @@
-import pink from '@mui/material/colors/pink'
-import createTheme from '@mui/material/styles/createTheme'
-import responsiveFontSizes from '@mui/material/styles/responsiveFontSizes'
+import { createTheme, responsiveFontSizes } from '@mui/material/styles'
 
 export const colors = {
   primary: {
@@ -62,9 +60,6 @@ const theme = createTheme({
     mode: 'dark',
     primary: {
       main: colors.primary[100],
-    },
-    secondary: {
-      main: pink[500],
     },
   },
   // Set baseline width to 1920

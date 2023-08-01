@@ -12,6 +12,7 @@ interface Props {
 
 const Tag = ({ bgcolor, 'data-testid': testid, label }: Props) => {
   const color = generateAutoColor(bgcolor, 80)
+
   return (
     <StyledTag bgcolor={bgcolor} color={color} data-testid={testid}>
       {label}
