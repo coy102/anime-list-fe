@@ -4,6 +4,7 @@ import CoverCard from '~/components/CoverCard'
 import Loading from '~/components/Loading'
 
 import useCustom from './hooks'
+import { WrapperStyled } from './styled'
 
 const BrowseAnime = () => {
   const {
@@ -11,7 +12,8 @@ const BrowseAnime = () => {
   } = useCustom()
 
   return (
-    <>
+    <WrapperStyled>
+      <h3>Explore Anime</h3>
       <Grid container spacing={5}>
         {anime?.items?.map((item, i) => (
           <Grid item data-test-id={`anime-card-${i}`} key={`card-${i}`} xs={6}>
@@ -27,7 +29,7 @@ const BrowseAnime = () => {
         ))}
       </Grid>
       <Loading loading={loading} />
-    </>
+    </WrapperStyled>
   )
 }
 
