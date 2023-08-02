@@ -16,6 +16,7 @@ fragment MediaCommon on Media {
     color
     large
   }
+  averageScore
 }
 
 fragment MediaDetail on Media {
@@ -44,12 +45,14 @@ query animeList($page: Int, $perPage: Int, $sort: [MediaSort], $search: String) 
 query animeDetail($id: Int, $type: MediaType, $isAdult: Boolean) {
   animeDetail: Media(id: $id, type: $type, isAdult: $isAdult) {
     id
+    bannerImage
     title {
       romaji
       english
     }
     coverImage {
       large
+      color
     }
     startDate {
       year

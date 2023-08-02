@@ -4430,9 +4430,9 @@ export type PageInfoFragment = Pick<
   'total' | 'currentPage' | 'lastPage' | 'hasNextPage' | 'perPage'
 >
 
-export type MediaCommonFragment = Pick<Types.Media, 'id' | 'genres'> & {
+export type MediaCommonFragment = Pick<Types.Media, 'id' | 'genres' | 'averageScore'> & {
   title: Types.Maybe<Pick<Types.MediaTitle, 'romaji'>>
-  coverImage: Types.Maybe<Pick<Types.MediaCoverImage, 'color' | 'large' | 'medium'>>
+  coverImage: Types.Maybe<Pick<Types.MediaCoverImage, 'color' | 'large'>>
 }
 
 export type MediaDetailFragment = Pick<Types.Media, 'id' | 'genres'> & {
@@ -4465,6 +4465,7 @@ export type AnimeDetailQuery = {
     Pick<
       Types.Media,
       | 'id'
+      | 'bannerImage'
       | 'description'
       | 'season'
       | 'seasonYear'
@@ -4482,7 +4483,7 @@ export type AnimeDetailQuery = {
       | 'popularity'
     > & {
       title: Types.Maybe<Pick<Types.MediaTitle, 'romaji' | 'english'>>
-      coverImage: Types.Maybe<Pick<Types.MediaCoverImage, 'large'>>
+      coverImage: Types.Maybe<Pick<Types.MediaCoverImage, 'large' | 'color'>>
       startDate: Types.Maybe<Pick<Types.FuzzyDate, 'year' | 'month' | 'day'>>
       endDate: Types.Maybe<Pick<Types.FuzzyDate, 'year' | 'month' | 'day'>>
       relations: Types.Maybe<{
@@ -4583,8 +4584,8 @@ export const MediaCommonFragmentDoc = gql`
     coverImage {
       color
       large
-      medium
     }
+    averageScore
   }
 `
 export const MediaDetailFragmentDoc = gql`
@@ -4652,12 +4653,14 @@ export const AnimeDetailDocument = gql`
   query animeDetail($id: Int, $type: MediaType, $isAdult: Boolean) {
     animeDetail: Media(id: $id, type: $type, isAdult: $isAdult) {
       id
+      bannerImage
       title {
         romaji
         english
       }
       coverImage {
         large
+        color
       }
       startDate {
         year

@@ -14,7 +14,7 @@ const BrowseAnime = () => {
   return (
     <WrapperStyled>
       <h3>Explore Anime</h3>
-      <Grid container spacing={5}>
+      <Grid container spacing={2}>
         {anime?.items?.map((item, i) => (
           <Grid item data-test-id={`anime-card-${i}`} key={`card-${i}`} xs={6}>
             <CoverCard
@@ -23,6 +23,7 @@ const BrowseAnime = () => {
               genres={item?.genres || []}
               index={i}
               link={`/anime/${item?.id}`}
+              score={item?.averageScore || 0}
               title={item?.title?.romaji || ''}
             />
           </Grid>

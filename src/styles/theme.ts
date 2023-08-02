@@ -1,11 +1,6 @@
-import { createTheme, responsiveFontSizes } from '@mui/material/styles'
+import { createTheme } from '@mui/material/styles'
 
 export const colors = {
-  primary: {
-    100: '#00bcd4',
-    200: '#47c4d9',
-    300: '#67cbde',
-  },
   dark: {
     100: '#121212',
     200: '#282828',
@@ -15,6 +10,14 @@ export const colors = {
     100: '#8f9296',
     200: '#76797e',
     300: '#5d6066',
+  },
+  primary: {
+    100: '#00bcd4',
+    200: '#47c4d9',
+    300: '#67cbde',
+  },
+  yellow: {
+    100: '#ffc107',
   },
 }
 
@@ -63,23 +66,7 @@ const theme = createTheme({
     },
   },
   // Set baseline width to 1920
-  spacing: (factor) =>
-    [
-      '0.104vw', // 2
-      '0.208vw', // 4
-      '0.417vw', // 8
-      '0.625vw', // 12
-      '0.833vw', // 16
-      '1.042vw', // 20
-      '1.25vw', // 24
-      '1.458vw', // 28
-      '1.667vw', // 32
-      '2.5vw', // 48
-      '3.333vw', // 64
-      '4.167vw', // 80
-      '5vw', // 96
-      '6.25vw', // 120p
-    ][factor],
+  spacing: (factor) => [2, 4, 8, 12, 16, 20, 24, 28, 32, 48, 64, 80, 96, 120][factor],
   typography: {
     fontFamily: 'Inter, sans-serif',
     fontSize: 10,
@@ -90,4 +77,4 @@ const theme = createTheme({
   },
 })
 
-export default responsiveFontSizes(theme)
+export default theme

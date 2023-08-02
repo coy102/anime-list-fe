@@ -1,7 +1,7 @@
 /* eslint-disable sort-keys */
 import { css } from '@emotion/react'
 
-import theme from './theme'
+import theme, { colors } from './theme'
 
 const globalCss = css({
   '#root': {
@@ -17,6 +17,7 @@ const globalCss = css({
   },
   '*::-webkit-scrollbar-thumb': {
     borderColor: 'none',
+    backgroundColor: colors.primary[100],
     borderRadius: 16,
     cursor: 'pointer',
   },

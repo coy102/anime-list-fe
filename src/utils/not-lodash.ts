@@ -15,3 +15,7 @@ export const debounce = (func: Function, wait: number, immediate?: boolean) => {
     timeout = setTimeout(later, wait)
   }
 }
+
+export const capitalize = (string) => {
+  return string ? string.charAt(0).toUpperCase() + string.slice(1).toLowerCase() : ''
+}
