@@ -43,9 +43,12 @@ const useCustom = () => {
     }))
   }, [])
 
-  // handle fetch more pokemon infinite scroll logic
+  // handle fetch more anime
   const handleScroll = debounce(() => {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+    if (
+      window.innerHeight + document.documentElement.scrollTop ===
+      document.documentElement.offsetHeight
+    ) {
       handeLoadMore()
     }
   }, 500)
