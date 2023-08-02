@@ -1,3 +1,5 @@
-const DetailPage = () => <div>Detail</div>
+import DetailAnime from '~/modules/DetailAnime'
 
-export default DetailPage
+const DetailAnimePage = () => <DetailAnime />
+
+export default DetailAnimePage
