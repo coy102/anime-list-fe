@@ -45,10 +45,8 @@ query animeDetail($id: Int, $type: MediaType, $isAdult: Boolean) {
   animeDetail: Media(id: $id, type: $type, isAdult: $isAdult) {
     id
     title {
-      userPreferred
       romaji
       english
-      native
     }
     coverImage {
       large

@@ -4432,7 +4432,7 @@ export type PageInfoFragment = Pick<
 
 export type MediaCommonFragment = Pick<Types.Media, 'id' | 'genres'> & {
   title: Types.Maybe<Pick<Types.MediaTitle, 'romaji'>>
-  coverImage: Types.Maybe<Pick<Types.MediaCoverImage, 'color' | 'large'>>
+  coverImage: Types.Maybe<Pick<Types.MediaCoverImage, 'color' | 'large' | 'medium'>>
 }
 
 export type MediaDetailFragment = Pick<Types.Media, 'id' | 'genres'> & {
@@ -4481,7 +4481,7 @@ export type AnimeDetailQuery = {
       | 'averageScore'
       | 'popularity'
     > & {
-      title: Types.Maybe<Pick<Types.MediaTitle, 'userPreferred' | 'romaji' | 'english' | 'native'>>
+      title: Types.Maybe<Pick<Types.MediaTitle, 'romaji' | 'english'>>
       coverImage: Types.Maybe<Pick<Types.MediaCoverImage, 'large'>>
       startDate: Types.Maybe<Pick<Types.FuzzyDate, 'year' | 'month' | 'day'>>
       endDate: Types.Maybe<Pick<Types.FuzzyDate, 'year' | 'month' | 'day'>>
@@ -4583,6 +4583,7 @@ export const MediaCommonFragmentDoc = gql`
     coverImage {
       color
       large
+      medium
     }
   }
 `
@@ -4652,10 +4653,8 @@ export const AnimeDetailDocument = gql`
     animeDetail: Media(id: $id, type: $type, isAdult: $isAdult) {
       id
       title {
-        userPreferred
         romaji
         english
-        native
       }
       coverImage {
         large
