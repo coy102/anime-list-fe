@@ -17,3 +17,9 @@ describe('~/utils/date - formatTime', () => {
     expect(formatTime(0)).toBe('0m')
   })
 })
+
+describe('~/utils/date - formatFriendlyDate', () => {
+  it('should return Jul, 04 2014', () => {
+    expect(formatTime('2014-7-4')).toBe('0m')
+  })
+})

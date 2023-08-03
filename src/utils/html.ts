@@ -6,4 +6,5 @@ export const htmlClean = (htmlString) =>
     allowedAttributes: {
       a: ['href'],
     },
+    selfClosing: ['img', 'br', 'hr'],
   })

@@ -1,7 +1,6 @@
 import { Suspense, memo } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
-import Loading from '~/components/Loading'
 import publicRoute from '~/routes/publicRoute'
 
 import BottomNav from '../BottomNav'
@@ -12,7 +11,7 @@ const PublicLayout = () => {
   return (
     <>
       <MobileContainer>
-        <Suspense fallback={<Loading loading />}>
+        <Suspense>
           <Routes>
             {publicRoute.map(({ id, path, component: Component }) => (
               <Route element={Component} key={id} path={path} />

@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 export const formatTime = (totalMinutes) => {
   const hours = Math.floor(totalMinutes / 60)
   const minutes = totalMinutes % 60
@@ -12,3 +14,5 @@ export const formatTime = (totalMinutes) => {
 
   return formattedTime.trim()
 }
+
+export const formatFriendlyDate = (date) => dayjs(date).format('MMM, DD YYYY')
