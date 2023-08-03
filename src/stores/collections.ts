@@ -17,6 +17,10 @@ interface AnimeState {
 
 interface DataState {
   collections: Collections[]
+  deleteDialog: {
+    collectionId: string
+    isOpen: boolean
+  }
   manageDialog: {
     collectionId: string
     collectionName: string
@@ -33,9 +37,10 @@ interface State extends DataState {
   getCollections: () => Collections[]
   handleAddCollection: (collectionName: string) => void
   handleAddCollectionItem: (collectionId: string) => void
-  handleDeleteCollection: (collectionId: string) => void
+  handleDeleteCollection: () => void
   handleDeleteCollectionItem: (collectionId: string, animeId: number) => void
   handleEditCollection: (collectionName: string, collectionId: string) => void
+  handleToggleDeleteDialog: (collectionId?: string) => () => void
   handleToggleManageDialog: (collection?: Collections | null) => void
   handleToggleSelectionDialog: (anime: any) => void
   validateCollectionUniqueName: (collectionName: string) => boolean
@@ -44,14 +49,18 @@ interface State extends DataState {
 
 const initialState: DataState = {
   collections: DEFAULT_COLLECTIONS,
-  selectionDialog: {
+  deleteDialog: {
+    collectionId: '',
     isOpen: false,
-    anime: null,
   },
   manageDialog: {
     collectionId: '',
     collectionName: '',
     isOpen: false,
+  },
+  selectionDialog: {
+    isOpen: false,
+    anime: null,
   },
 }
 
@@ -108,13 +117,15 @@ export const useCollectionsStore = create<State>()(
         )
       },
       // Delete collection by collectionId
-      handleDeleteCollection: (collectionId) => {
+      handleDeleteCollection: () => {
+        const { collectionId } = get().deleteDialog
         return set(
           produce((draft: Draft<DataState>) => {
             const collectionIndex = draft.collections.findIndex((f) => f.id === collectionId)
             // Delete if exist
             if (collectionIndex !== -1) {
               draft.collections.splice(collectionIndex, 1)
+              draft.deleteDialog.isOpen = false
             }
           }),
         )
@@ -150,6 +161,17 @@ export const useCollectionsStore = create<State>()(
           }),
         )
       },
+      // Handle toggle open/close delete confirmation dialog
+      handleToggleDeleteDialog:
+        (collectionId = '') =>
+        () => {
+          return set(
+            produce((draft: Draft<DataState>) => {
+              draft.deleteDialog.collectionId = collectionId
+              draft.deleteDialog.isOpen = !draft.deleteDialog.isOpen
+            }),
+          )
+        },
       // Handle toggle open/close dialog manage collection
       handleToggleManageDialog: (collection = null) => {
         return set(

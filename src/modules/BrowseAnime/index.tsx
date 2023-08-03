@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid'
 import CoverCard from '~/components/CoverCard'
 import Loading from '~/components/Loading'
 
-import CollectionDialog from '../Collections/CollectionDialog'
+import CollectionDialog from '../Collections/components/CollectionDialog'
 
 import useCustom from './hooks'
 import { WrapperStyled } from './styled'

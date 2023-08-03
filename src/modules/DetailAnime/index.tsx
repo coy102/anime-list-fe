@@ -3,7 +3,7 @@ import Footer from '~/components/Footer'
 import { fontSize } from '~/styles/theme'
 import { isEmpty } from '~/utils/not-lodash'
 
-import CollectionDialog from '../Collections/CollectionDialog'
+import CollectionDialog from '../Collections/components/CollectionDialog'
 
 import Characters from './components/Characters'
 import Description from './components/Description'
