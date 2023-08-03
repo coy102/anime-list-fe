@@ -1,22 +1,25 @@
-import { Fab } from '@mui/material'
+import { BottomNavigation } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 export const ImgWrapper = styled('div')({
-  paddingTop: 8,
   marginRight: 2,
-  marginLeft: -10,
+  paddingTop: 10,
+  flexGrow: 1,
 })
 
-export const FabWrapperStyled = styled('div')({
-  bottom: 15,
-  margin: '0px auto',
+export const Wrapper = styled(BottomNavigation)({
+  alignItems: 'center',
+  display: 'flex',
+  justifyContent: 'start',
+  padding: '0px 10px',
+})
+
+export const BottomNavStyled = styled('div')({
+  bottom: 0,
   maxWidth: 500,
-  padding: 10,
   position: 'fixed',
   right: 'unset',
-})
-
-export const FabStyled = styled(Fab)({
+  width: '100%',
   zIndex: 2,
 })
 

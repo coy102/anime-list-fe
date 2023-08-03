@@ -1,11 +1,11 @@
 import { memo } from 'react'
 
-import { FabStyled, FabText, FabWrapperStyled, ImgWrapper } from './style'
+import { FabText, BottomNavStyled, ImgWrapper, Wrapper } from './style'
 
 const FabMenu = () => {
   return (
-    <FabWrapperStyled>
-      <FabStyled variant="extended">
+    <BottomNavStyled>
+      <Wrapper>
         <ImgWrapper>
           <img
             alt="logo"
@@ -16,8 +16,8 @@ const FabMenu = () => {
           />
         </ImgWrapper>
         <FabText>Menu</FabText>
-      </FabStyled>
-    </FabWrapperStyled>
+      </Wrapper>
+    </BottomNavStyled>
   )
 }
 
