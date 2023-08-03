@@ -1,58 +1,57 @@
 import { memo } from 'react'
 
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import { Box } from '@mui/material'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
+import AddIcon from '@mui/icons-material/Add'
 
 import { COVER_SIZE } from '~/config/constants'
 
-import Tag from '../Tag'
+import CoverImage from '../CoverImage'
 
-import {
-  ImageWrapperStyled,
-  HeadWrapperStyled,
-  IconButtonStyled,
-  LinkStyled,
-  TitleWrapperStyled,
-  TitleStyled,
-} from './style'
+import { ImageWrapperStyled, HeadWrapperStyled, IconButtonStyled, LinkStyled } from './style'
 
 interface Props {
-  color: string
+  color?: string
   coverImage: string
-  genres: any[]
+  genres?: any[]
+  imageHeight?: string | number
+  imageWidth?: string | number
   index: number
+  link: string
+  score: number
   title: string
+  totalGenre?: number
 }
 
-const CoverCard = ({ color, coverImage, genres, index, title }: Props) => {
+const CoverCard = ({
+  color = '',
+  coverImage,
+  genres = [],
+  index,
+  link,
+  title,
+  imageHeight = COVER_SIZE.HEIGHT,
+  imageWidth = '100%',
+  totalGenre = 2,
+  score,
+}: Props) => {
   return (
     <ImageWrapperStyled>
       <HeadWrapperStyled>
         <IconButtonStyled size="small">
-          <FavoriteBorderIcon sx={{ p: 0 }} />
+          <AddIcon />
         </IconButtonStyled>
       </HeadWrapperStyled>
-      <LinkStyled to="/">
-        <LazyLoadImage
-          alt=""
-          data-test-id={`anime-cover-${index}`}
-          effect="blur"
-          height={COVER_SIZE.HEIGHT}
-          src={coverImage || ''}
-          width="100%"
+      <LinkStyled to={link}>
+        <CoverImage
+          color={color}
+          coverImage={coverImage}
+          data-testid={`cover-image-${index}`}
+          genres={genres}
+          imageHeight={imageHeight}
+          imageWidth={imageWidth}
+          score={score}
+          title={title}
+          totalGenre={totalGenre}
         />
-
-        <TitleWrapperStyled>
-          <Box display="flex">
-            {genres?.slice(0, 2).map((genre, idxGenre) => (
-              <Box key={`genre-tag-${idxGenre}`} mr={1}>
-                <Tag bgcolor={color} data-testid={`anime-genere-${idxGenre}`} label={genre || ''} />
-              </Box>
-            ))}
-          </Box>
-          <TitleStyled>{title}</TitleStyled>
-        </TitleWrapperStyled>
       </LinkStyled>
     </ImageWrapperStyled>
   )

@@ -1,7 +1,7 @@
 /* eslint-disable sort-keys */
 import { css } from '@emotion/react'
 
-import theme from './theme'
+import theme, { colors } from './theme'
 
 const globalCss = css({
   '#root': {
@@ -17,6 +17,7 @@ const globalCss = css({
   },
   '*::-webkit-scrollbar-thumb': {
     borderColor: 'none',
+    backgroundColor: colors.primary[100],
     borderRadius: 16,
     cursor: 'pointer',
   },
@@ -26,6 +27,22 @@ const globalCss = css({
   'html, body': {
     margin: 0,
     padding: 0,
+  },
+  '.responsive-scroll': {
+    msOverflowStyle: 'none',
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
+    '-webkit-overflow-scrolling': 'touch',
+    [theme.breakpoints.up('md')]: {
+      '&:hover, &:focus': {
+        scrollbarWidth: 'auto',
+        msOverflowStyle: 'auto',
+        '&::-webkit-scrollbar': {
+          display: 'block',
+        },
+      },
+    },
   },
 })
 

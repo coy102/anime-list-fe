@@ -11,16 +11,26 @@ fragment MediaCommon on Media {
   title {
     romaji
   }
+  type
   genres
-  season
-  seasonYear
-  episodes
-  averageScore
   coverImage {
     color
     large
   }
-  description
+  averageScore
+}
+
+fragment MediaDetail on Media {
+  id
+  title {
+    romaji
+  }
+  type
+  genres
+  coverImage {
+    color
+    large
+  }
 }
 
 query animeList($page: Int, $perPage: Int, $sort: [MediaSort], $search: String) {
@@ -30,6 +40,86 @@ query animeList($page: Int, $perPage: Int, $sort: [MediaSort], $search: String) 
     }
     items: media(sort: $sort, search: $search) {
       ...MediaCommon
+    }
+  }
+}
+
+query animeDetail($id: Int, $type: MediaType, $isAdult: Boolean) {
+  animeDetail: Media(id: $id, type: $type, isAdult: $isAdult) {
+    id
+    bannerImage
+    title {
+      romaji
+      english
+    }
+    coverImage {
+      large
+      color
+    }
+    startDate {
+      year
+      month
+      day
+    }
+    endDate {
+      year
+      month
+      day
+    }
+    description
+    season
+    seasonYear
+    type
+    format
+    status(version: 2)
+    episodes
+    duration
+    chapters
+    volumes
+    genres
+    source(version: 3)
+    averageScore
+    relations {
+      edges {
+        id
+        relationType(version: 2)
+        node {
+          id
+          title {
+            romaji
+          }
+          type
+          format
+          coverImage {
+            medium
+          }
+        }
+      }
+    }
+    characterPreview: characters(perPage: 106, sort: [ROLE, RELEVANCE, ID]) {
+      edges {
+        id
+        role
+        name
+        node {
+          id
+          name {
+            userPreferred
+          }
+          image {
+            medium
+          }
+        }
+      }
+    }
+    studios {
+      edges {
+        isMain
+        node {
+          id
+          name
+        }
+      }
     }
   }
 }
