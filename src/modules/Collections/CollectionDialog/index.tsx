@@ -1,20 +1,12 @@
 import { memo } from 'react'
 
 import { Close } from '@mui/icons-material'
-import {
-  Box,
-  Dialog,
-  IconButton,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-} from '@mui/material'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
+import AddIcon from '@mui/icons-material/Add'
+import DoneIcon from '@mui/icons-material/Done'
+import { Box, Dialog, IconButton, Typography } from '@mui/material'
 
+import CoverItem from '~/components/CoverItem'
 import { colors, fontSize } from '~/styles/theme'
-import { isEmpty } from '~/utils/not-lodash'
 
 import useCustom from './hooks'
 import { DialogContentStyled, DialogTitleStyled } from './styled'
@@ -36,35 +28,35 @@ const CollectionDialog = () => {
         </Box>
       </DialogTitleStyled>
       <DialogContentStyled>
-        <Box display="flex">
+        <Box display="flex" mb={2}>
           <Typography flexGrow={1} fontSize={fontSize[14]}>
             Add to Collection
           </Typography>
         </Box>
 
         <Box>
-          <List>
-            {store.collections.map((item) => (
-              <ListItemButton key={item.id} onClick={methods.handleClickAddToCollection(item.id)}>
-                <ListItemIcon>
-                  {!isEmpty(item?.items[0]?.cover) && (
-                    <LazyLoadImage
-                      alt=""
-                      effect="blur"
-                      height={30}
-                      src={item.items[0].cover}
-                      width={30}
-                    />
+          {store.collections.map((item) => (
+            <CoverItem
+              renderAction={
+                <Box>
+                  {!store.validateItemUniqueName(item.id) ? (
+                    <DoneIcon />
+                  ) : (
+                    <IconButton size="small" onClick={methods.handleClickAddToCollection(item.id)}>
+                      <AddIcon />
+                    </IconButton>
                   )}
-
-                  {isEmpty(item.items[0]?.cover) && (
-                    <Box bgcolor={colors.primary[100]} height={30} width={30} />
-                  )}
-                </ListItemIcon>
-                <ListItemText primary={item.name} />
-              </ListItemButton>
-            ))}
-          </List>
+                </Box>
+              }
+              coverImage={item?.items[0]?.cover || ''}
+              imageHeight={50}
+              imageWidth={50}
+              key={item.id}
+              link={`/collection/${item.id}`}
+              subTitle={`${item?.items?.length} collections`}
+              title={item.name}
+            />
+          ))}
         </Box>
       </DialogContentStyled>
     </Dialog>

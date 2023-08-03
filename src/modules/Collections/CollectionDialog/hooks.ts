@@ -38,6 +38,7 @@ const useCustom = () => {
       collections,
       handleToggleSelectionDialog,
       selectionDialog,
+      validateItemUniqueName,
     },
     methods: {
       handleClickAddToCollection,
