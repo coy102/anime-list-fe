@@ -1,8 +1,13 @@
 import { useCollectionsStore } from '~/stores/collections'
 
 const useCustom = () => {
-  const { collections, deleteDialog, handleToggleDeleteDialog, handleDeleteCollection } =
-    useCollectionsStore()
+  const {
+    collections,
+    deleteDialog,
+    handleToggleDeleteDialog,
+    handleDeleteCollection,
+    handleToggleManageDialog,
+  } = useCollectionsStore()
 
   return {
     store: {
@@ -10,6 +15,7 @@ const useCustom = () => {
       deleteDialog,
       handleDeleteCollection,
       handleToggleDeleteDialog,
+      handleToggleManageDialog,
     },
   }
 }

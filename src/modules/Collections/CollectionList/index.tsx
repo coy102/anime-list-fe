@@ -1,11 +1,13 @@
 import { memo } from 'react'
 
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
-import { IconButton } from '@mui/material'
+import { Button, IconButton, Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 
 import AlertDialog from '~/components/AlertDialog'
 import CoverItem from '~/components/CoverItem'
+
+import ManageDialog from '../components/ManageDialog'
 
 import useCustom from './hooks'
 
@@ -14,7 +16,17 @@ const CollectionList = () => {
   return (
     <>
       <Box px={3}>
-        <h3>My Collections</h3>
+        <Box display="flex" my={3}>
+          <Typography flexGrow={1}>My Collections</Typography>
+          <Button
+            color="secondary"
+            size="small"
+            variant="contained"
+            onClick={() => store.handleToggleManageDialog()}
+          >
+            New collection
+          </Button>
+        </Box>
 
         {store.collections.map((item) => (
           <CoverItem
@@ -42,6 +54,8 @@ const CollectionList = () => {
           handleToggle={store.handleToggleDeleteDialog()}
           isOpen={store.deleteDialog.isOpen}
         />
+
+        <ManageDialog />
       </Box>
     </>
   )
