@@ -42,8 +42,8 @@ query animeList($page: Int, $perPage: Int, $sort: [MediaSort], $search: String) 
   }
 }
 
-query animeDetail($id: Int, $type: MediaType, $isAdult: Boolean) {
-  animeDetail: Media(id: $id, type: $type, isAdult: $isAdult) {
+query animeDetail($id: Int, $isAdult: Boolean) {
+  animeDetail: Media(id: $id, isAdult: $isAdult) {
     id
     bannerImage
     title {
@@ -85,15 +85,16 @@ query animeDetail($id: Int, $type: MediaType, $isAdult: Boolean) {
         relationType(version: 2)
         node {
           id
+          averageScore
           title {
-            userPreferred
+            romaji
           }
           format
           type
           status(version: 2)
           bannerImage
           coverImage {
-            large
+            medium
           }
         }
       }

@@ -54,11 +54,18 @@ const theme = createTheme({
         elevation: 1,
       },
     },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundImage: 'unset',
+        },
+      },
+    },
   },
   palette: {
     background: {
       default: colors.dark[100],
-      paper: colors.dark[100],
+      paper: colors.dark[200],
     },
     mode: 'dark',
     primary: {

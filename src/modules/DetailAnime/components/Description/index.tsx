@@ -18,7 +18,12 @@ const Description = ({ description }: Props) => {
             Synopsis
           </Typography>
 
-          <Box fontSize={fontSize[14]} maxHeight={200} overflow="auto">
+          <Box
+            className="responsive-scroll"
+            fontSize={fontSize[14]}
+            maxHeight={200}
+            overflow="auto"
+          >
             {htmlClean(description)}
           </Box>
         </Box>

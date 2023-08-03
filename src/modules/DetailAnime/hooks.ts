@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { AnimeDetailQuery, useAnimeDetailLazyQuery } from '~/gqlcodegen/hooks/anime'
-import { MediaType } from '~/gqlcodegen/types'
 
 const useCustom = () => {
   const params = useParams()
@@ -21,7 +20,6 @@ const useCustom = () => {
       variables: {
         id,
         isAdult: false,
-        type: MediaType.Anime,
       },
     })
 

@@ -1,4 +1,4 @@
-import { debounce } from '~/utils/not-lodash'
+import { debounce, capitalize, isEmpty } from '~/utils/not-lodash'
 
 describe('~/utils/not-lodash - debounce', () => {
   jest.useFakeTimers()
@@ -34,5 +34,37 @@ describe('~/utils/not-lodash - debounce', () => {
 
     jest.advanceTimersByTime(1000)
     expect(mockFn).toHaveBeenCalledTimes(2)
+  })
+})
+
+describe('~/utils/not-lodash - capitalize', () => {
+  it('should return valid capitalized text', () => {
+    expect(capitalize('FAJAR')).toEqual('Fajar')
+  })
+
+  it('should return valid capitalized text 2 words', () => {
+    expect(capitalize('fajar')).toEqual('Fajar')
+  })
+})
+
+describe('~/utils/not-lodash - isEmpty', () => {
+  it('is empty array', () => {
+    expect(isEmpty([])).toEqual(true)
+  })
+
+  it('is empty object', () => {
+    expect(isEmpty({})).toEqual(true)
+  })
+
+  it('is empty string', () => {
+    expect(isEmpty('')).toEqual(true)
+  })
+
+  it('is null', () => {
+    expect(isEmpty(null)).toEqual(true)
+  })
+
+  it('is not empty object', () => {
+    expect(isEmpty({ test: 1 })).toEqual(false)
   })
 })

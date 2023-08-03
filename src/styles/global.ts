@@ -28,6 +28,22 @@ const globalCss = css({
     margin: 0,
     padding: 0,
   },
+  '.responsive-scroll': {
+    msOverflowStyle: 'none',
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
+    '-webkit-overflow-scrolling': 'touch',
+    [theme.breakpoints.up('md')]: {
+      '&:hover, &:focus': {
+        scrollbarWidth: 'auto',
+        msOverflowStyle: 'auto',
+        '&::-webkit-scrollbar': {
+          display: 'block',
+        },
+      },
+    },
+  },
 })
 
 export default globalCss

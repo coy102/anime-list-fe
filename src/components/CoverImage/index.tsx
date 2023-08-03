@@ -11,10 +11,10 @@ import Tag from '../Tag'
 import { TitleWrapperStyled, TitleStyled, ImageStyled } from './style'
 
 interface Props {
-  color: string
+  color?: string
   coverImage: string
   'data-testid': string
-  genres: any[]
+  genres?: any[]
   imageHeight?: string | number
   imageWidth?: string | number
   score: number
@@ -26,10 +26,10 @@ interface Props {
 }
 
 const CoverImage = ({
-  color,
+  color = '',
   coverImage,
   'data-testid': testid,
-  genres,
+  genres = [],
   imageHeight = COVER_SIZE.HEIGHT,
   imageWidth = '100%',
   subtitle,
@@ -41,14 +41,18 @@ const CoverImage = ({
 }: Props) => {
   return (
     <Box position="relative">
-      <ImageStyled
-        alt=""
-        data-testid={testid}
-        effect="blur"
-        height={imageHeight}
-        src={coverImage || ''}
-        width={imageWidth}
-      />
+      {coverImage && (
+        <ImageStyled
+          alt=""
+          data-testid={testid}
+          effect="blur"
+          height={imageHeight}
+          src={coverImage || ''}
+          width={imageWidth}
+        />
+      )}
+
+      {!coverImage && <Box height={imageHeight} width={imageWidth} />}
 
       <TitleWrapperStyled>
         <Box alignItems="center" display="flex" width="100%">
@@ -60,7 +64,7 @@ const CoverImage = ({
             ))}
           </Box>
 
-          <Typography alignItems="center" display="flex" fontSize={fontSize[12]}>
+          <Typography alignContent="end" alignItems="center" display="flex" fontSize={fontSize[12]}>
             <StarOutlineIcon fontSize="small" htmlColor={colors.yellow[100]} />
             {score}
           </Typography>

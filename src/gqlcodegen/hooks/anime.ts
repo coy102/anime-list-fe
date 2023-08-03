@@ -4456,7 +4456,6 @@ export type AnimeListQuery = {
 
 export type AnimeDetailQueryVariables = Types.Exact<{
   id: Types.Maybe<Types.Scalars['Int']>
-  type: Types.Maybe<Types.MediaType>
   isAdult: Types.Maybe<Types.Scalars['Boolean']>
 }>
 
@@ -4492,9 +4491,12 @@ export type AnimeDetailQuery = {
             Types.Maybe<
               Pick<Types.MediaEdge, 'id' | 'relationType'> & {
                 node: Types.Maybe<
-                  Pick<Types.Media, 'id' | 'format' | 'type' | 'status' | 'bannerImage'> & {
-                    title: Types.Maybe<Pick<Types.MediaTitle, 'userPreferred'>>
-                    coverImage: Types.Maybe<Pick<Types.MediaCoverImage, 'large'>>
+                  Pick<
+                    Types.Media,
+                    'id' | 'averageScore' | 'format' | 'type' | 'status' | 'bannerImage'
+                  > & {
+                    title: Types.Maybe<Pick<Types.MediaTitle, 'romaji'>>
+                    coverImage: Types.Maybe<Pick<Types.MediaCoverImage, 'medium'>>
                   }
                 >
               }
@@ -4650,8 +4652,8 @@ export function useAnimeListLazyQuery(
 export type AnimeListQueryHookResult = ReturnType<typeof useAnimeListQuery>
 export type AnimeListLazyQueryHookResult = ReturnType<typeof useAnimeListLazyQuery>
 export const AnimeDetailDocument = gql`
-  query animeDetail($id: Int, $type: MediaType, $isAdult: Boolean) {
-    animeDetail: Media(id: $id, type: $type, isAdult: $isAdult) {
+  query animeDetail($id: Int, $isAdult: Boolean) {
+    animeDetail: Media(id: $id, isAdult: $isAdult) {
       id
       bannerImage
       title {
@@ -4693,15 +4695,16 @@ export const AnimeDetailDocument = gql`
           relationType(version: 2)
           node {
             id
+            averageScore
             title {
-              userPreferred
+              romaji
             }
             format
             type
             status(version: 2)
             bannerImage
             coverImage {
-              large
+              medium
             }
           }
         }
@@ -4788,7 +4791,6 @@ export const AnimeDetailDocument = gql`
  * const { data, loading, error } = useAnimeDetailQuery({
  *   variables: {
  *      id: // value for 'id'
- *      type: // value for 'type'
  *      isAdult: // value for 'isAdult'
  *   },
  * });

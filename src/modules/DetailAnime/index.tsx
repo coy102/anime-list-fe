@@ -1,9 +1,11 @@
 import CoverImage from '~/components/CoverImage'
 import { fontSize } from '~/styles/theme'
+import { isEmpty } from '~/utils/not-lodash'
 
 import Description from './components/Description'
 import DetailInfo from './components/DetailInfo'
 import HeaderDetail from './components/HeaderDetail'
+import RelatedContent from './components/RelatedContent'
 import useCustom from './hooks'
 
 const DetailAnime = () => {
@@ -11,6 +13,8 @@ const DetailAnime = () => {
   const { anime, loading } = data
 
   if (loading && !anime) return <span>loading...</span>
+
+  const relations = anime?.relations?.edges
 
   return (
     <>
@@ -43,6 +47,8 @@ const DetailAnime = () => {
       />
 
       <Description description={anime?.description || ''} />
+
+      {!isEmpty(relations) && <RelatedContent relations={relations} />}
     </>
   )
 }

@@ -9,9 +9,9 @@ import CoverImage from '../CoverImage'
 import { ImageWrapperStyled, HeadWrapperStyled, IconButtonStyled, LinkStyled } from './style'
 
 interface Props {
-  color: string
+  color?: string
   coverImage: string
-  genres: any[]
+  genres?: any[]
   imageHeight?: string | number
   imageWidth?: string | number
   index: number
@@ -22,9 +22,9 @@ interface Props {
 }
 
 const CoverCard = ({
-  color,
+  color = '',
   coverImage,
-  genres,
+  genres = [],
   index,
   link,
   title,
