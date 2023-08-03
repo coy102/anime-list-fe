@@ -12,9 +12,7 @@ const useCustom = () => {
     pageInfo: {},
   })
 
-  const [animeListLazyQuery, { loading }] = useAnimeListLazyQuery({
-    fetchPolicy: 'cache-first',
-  })
+  const [animeListLazyQuery, { loading }] = useAnimeListLazyQuery()
 
   const handleLoadAnimeList = useCallback(async () => {
     const { data } = await animeListLazyQuery({
