@@ -2,6 +2,7 @@ import CoverImage from '~/components/CoverImage'
 import { fontSize } from '~/styles/theme'
 import { isEmpty } from '~/utils/not-lodash'
 
+import Characters from './components/Characters'
 import Description from './components/Description'
 import DetailInfo from './components/DetailInfo'
 import HeaderDetail from './components/HeaderDetail'
@@ -12,9 +13,10 @@ const DetailAnime = () => {
   const { data } = useCustom()
   const { anime, loading } = data
 
-  if (loading && !anime) return <span>loading...</span>
+  if (loading) return <span>loading...</span>
 
   const relations = anime?.relations?.edges
+  const characters = anime?.characterPreview?.edges
 
   return (
     <>
@@ -32,11 +34,13 @@ const DetailAnime = () => {
         totalGenre={10}
       />
       <HeaderDetail
+        chapters={anime?.chapters || 0}
         duration={anime?.duration || 0}
         episodes={anime?.episodes || 0}
         format={anime?.format || ''}
         season={anime?.season || ''}
         seasonYear={anime?.seasonYear || 0}
+        volumes={anime?.volumes || 0}
       />
 
       <DetailInfo
@@ -49,6 +53,7 @@ const DetailAnime = () => {
       <Description description={anime?.description || ''} />
 
       {!isEmpty(relations) && <RelatedContent relations={relations} />}
+      {!isEmpty(characters) && <Characters characters={characters} />}
     </>
   )
 }

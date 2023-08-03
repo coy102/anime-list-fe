@@ -14,7 +14,7 @@ export default [
   {
     component: <AnimeDetailPage />,
     id: 'anime-page',
-    path: '/anime/:id',
+    path: '/:type/:id',
   },
   {
     component: <CollectionsPage />,

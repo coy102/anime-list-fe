@@ -4430,12 +4430,12 @@ export type PageInfoFragment = Pick<
   'total' | 'currentPage' | 'lastPage' | 'hasNextPage' | 'perPage'
 >
 
-export type MediaCommonFragment = Pick<Types.Media, 'id' | 'genres' | 'averageScore'> & {
+export type MediaCommonFragment = Pick<Types.Media, 'id' | 'type' | 'genres' | 'averageScore'> & {
   title: Types.Maybe<Pick<Types.MediaTitle, 'romaji'>>
   coverImage: Types.Maybe<Pick<Types.MediaCoverImage, 'color' | 'large'>>
 }
 
-export type MediaDetailFragment = Pick<Types.Media, 'id' | 'genres'> & {
+export type MediaDetailFragment = Pick<Types.Media, 'id' | 'type' | 'genres'> & {
   title: Types.Maybe<Pick<Types.MediaTitle, 'romaji'>>
   coverImage: Types.Maybe<Pick<Types.MediaCoverImage, 'color' | 'large'>>
 }
@@ -4456,6 +4456,7 @@ export type AnimeListQuery = {
 
 export type AnimeDetailQueryVariables = Types.Exact<{
   id: Types.Maybe<Types.Scalars['Int']>
+  type: Types.Maybe<Types.MediaType>
   isAdult: Types.Maybe<Types.Scalars['Boolean']>
 }>
 
@@ -4491,10 +4492,7 @@ export type AnimeDetailQuery = {
             Types.Maybe<
               Pick<Types.MediaEdge, 'id' | 'relationType'> & {
                 node: Types.Maybe<
-                  Pick<
-                    Types.Media,
-                    'id' | 'averageScore' | 'format' | 'type' | 'status' | 'bannerImage'
-                  > & {
+                  Pick<Types.Media, 'id' | 'averageScore' | 'type' | 'format'> & {
                     title: Types.Maybe<Pick<Types.MediaTitle, 'romaji'>>
                     coverImage: Types.Maybe<Pick<Types.MediaCoverImage, 'medium'>>
                   }
@@ -4509,20 +4507,10 @@ export type AnimeDetailQuery = {
           Array<
             Types.Maybe<
               Pick<Types.CharacterEdge, 'id' | 'role' | 'name'> & {
-                voiceActors: Types.Maybe<
-                  Array<
-                    Types.Maybe<
-                      Pick<Types.Staff, 'id'> & { language: Types.Staff['languageV2'] } & {
-                        name: Types.Maybe<Pick<Types.StaffName, 'userPreferred'>>
-                        image: Types.Maybe<Pick<Types.StaffImage, 'large'>>
-                      }
-                    >
-                  >
-                >
                 node: Types.Maybe<
                   Pick<Types.Character, 'id'> & {
                     name: Types.Maybe<Pick<Types.CharacterName, 'userPreferred'>>
-                    image: Types.Maybe<Pick<Types.CharacterImage, 'large'>>
+                    image: Types.Maybe<Pick<Types.CharacterImage, 'medium'>>
                   }
                 >
               }
@@ -4536,28 +4524,6 @@ export type AnimeDetailQuery = {
             Types.Maybe<
               Pick<Types.StudioEdge, 'isMain'> & {
                 node: Types.Maybe<Pick<Types.Studio, 'id' | 'name'>>
-              }
-            >
-          >
-        >
-      }>
-      recommendations: Types.Maybe<{
-        pageInfo: Types.Maybe<Pick<Types.PageInfo, 'total'>>
-        nodes: Types.Maybe<
-          Array<
-            Types.Maybe<
-              Pick<Types.Recommendation, 'id' | 'rating' | 'userRating'> & {
-                mediaRecommendation: Types.Maybe<
-                  Pick<Types.Media, 'id' | 'format' | 'type' | 'status' | 'bannerImage'> & {
-                    title: Types.Maybe<Pick<Types.MediaTitle, 'userPreferred'>>
-                    coverImage: Types.Maybe<Pick<Types.MediaCoverImage, 'large'>>
-                  }
-                >
-                user: Types.Maybe<
-                  Pick<Types.User, 'id' | 'name'> & {
-                    avatar: Types.Maybe<Pick<Types.UserAvatar, 'large'>>
-                  }
-                >
               }
             >
           >
@@ -4582,6 +4548,7 @@ export const MediaCommonFragmentDoc = gql`
     title {
       romaji
     }
+    type
     genres
     coverImage {
       color
@@ -4596,6 +4563,7 @@ export const MediaDetailFragmentDoc = gql`
     title {
       romaji
     }
+    type
     genres
     coverImage {
       color
@@ -4652,8 +4620,8 @@ export function useAnimeListLazyQuery(
 export type AnimeListQueryHookResult = ReturnType<typeof useAnimeListQuery>
 export type AnimeListLazyQueryHookResult = ReturnType<typeof useAnimeListLazyQuery>
 export const AnimeDetailDocument = gql`
-  query animeDetail($id: Int, $isAdult: Boolean) {
-    animeDetail: Media(id: $id, isAdult: $isAdult) {
+  query animeDetail($id: Int, $type: MediaType, $isAdult: Boolean) {
+    animeDetail: Media(id: $id, type: $type, isAdult: $isAdult) {
       id
       bannerImage
       title {
@@ -4699,38 +4667,26 @@ export const AnimeDetailDocument = gql`
             title {
               romaji
             }
-            format
             type
-            status(version: 2)
-            bannerImage
+            format
             coverImage {
               medium
             }
           }
         }
       }
-      characterPreview: characters(perPage: 6, sort: [ROLE, RELEVANCE, ID]) {
+      characterPreview: characters(perPage: 106, sort: [ROLE, RELEVANCE, ID]) {
         edges {
           id
           role
           name
-          voiceActors(language: JAPANESE, sort: [RELEVANCE, ID]) {
-            id
-            name {
-              userPreferred
-            }
-            language: languageV2
-            image {
-              large
-            }
-          }
           node {
             id
             name {
               userPreferred
             }
             image {
-              large
+              medium
             }
           }
         }
@@ -4741,36 +4697,6 @@ export const AnimeDetailDocument = gql`
           node {
             id
             name
-          }
-        }
-      }
-      recommendations(perPage: 7, sort: [RATING_DESC, ID]) {
-        pageInfo {
-          total
-        }
-        nodes {
-          id
-          rating
-          userRating
-          mediaRecommendation {
-            id
-            title {
-              userPreferred
-            }
-            format
-            type
-            status(version: 2)
-            bannerImage
-            coverImage {
-              large
-            }
-          }
-          user {
-            id
-            name
-            avatar {
-              large
-            }
           }
         }
       }
@@ -4791,6 +4717,7 @@ export const AnimeDetailDocument = gql`
  * const { data, loading, error } = useAnimeDetailQuery({
  *   variables: {
  *      id: // value for 'id'
+ *      type: // value for 'type'
  *      isAdult: // value for 'isAdult'
  *   },
  * });

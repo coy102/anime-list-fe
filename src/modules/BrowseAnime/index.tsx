@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material'
+import Grid from '@mui/material/Grid'
 
 import CoverCard from '~/components/CoverCard'
 import Loading from '~/components/Loading'
@@ -22,7 +22,7 @@ const BrowseAnime = () => {
               coverImage={item?.coverImage?.large || ''}
               genres={item?.genres || []}
               index={i}
-              link={`/anime/${item?.id}`}
+              link={`/${item?.type?.toLowerCase()}/${item?.id}`}
               score={item?.averageScore || 0}
               title={item?.title?.romaji || ''}
             />

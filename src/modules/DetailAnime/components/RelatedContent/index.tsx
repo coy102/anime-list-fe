@@ -11,7 +11,7 @@ interface Props {
 }
 
 const RelatedContent = ({ relations }: Props) => (
-  <>
+  <Box px={1}>
     <Box fontWeight="bold" mt={2} px={2}>
       Related
     </Box>
@@ -19,16 +19,17 @@ const RelatedContent = ({ relations }: Props) => (
       <Box display="flex" p={2}>
         {relations?.map((r, i) => (
           <CoverItem
-            coverImage={r?.node?.coverImage?.medium || ''}
+            contentWidth={200}
+            coverImage={r.node.coverImage.medium || ''}
             key={`cover-item-${i}`}
-            link={`/anime/${r?.id}`}
-            relationType={r?.relationType || ''}
-            title={r?.node?.title?.romaji || ''}
+            link={`/${r.node.type.toLowerCase()}/${r.node.id}`}
+            subTitle={r.node.title?.romaji || ''}
+            title={r.relationType || ''}
           />
         ))}
       </Box>
     </ScrollContainerStyled>
-  </>
+  </Box>
 )
 
 export default memo(RelatedContent)

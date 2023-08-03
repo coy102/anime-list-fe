@@ -1,10 +1,13 @@
 import { memo } from 'react'
 
-import { Box, Card, Grid, capitalize } from '@mui/material'
+import Box from '@mui/material/Box'
+import Card from '@mui/material/Card'
+import Grid from '@mui/material/Grid'
 
 import InfoText from '~/components/InfoText'
 import { FuzzyDate } from '~/gqlcodegen/types'
 import { formatFriendlyDate } from '~/utils/date'
+import { capitalize } from '~/utils/not-lodash'
 
 interface Props {
   endDate: FuzzyDate
@@ -26,10 +29,13 @@ const DetailInfo = ({ endDate, startDate, source, studios }: Props) => {
             <InfoText label="Start Date" value={formatFriendlyDate(formatStartDate)} />
           </Grid>
           <Grid item xs={6}>
-            <InfoText label="End Date" value={formatFriendlyDate(formatEndDate)} />
+            <InfoText
+              label="End Date"
+              value={endDate?.year ? formatFriendlyDate(formatEndDate) : '-'}
+            />
           </Grid>
           <Grid item xs={6}>
-            <InfoText label="Studio" value={studio} />
+            <InfoText label="Studio" value={studio || '-'} />
           </Grid>
           <Grid item xs={6}>
             <InfoText label="Source" value={capitalize(source)} />
