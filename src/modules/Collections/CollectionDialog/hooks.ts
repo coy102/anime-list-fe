@@ -8,9 +8,10 @@ const useCustom = () => {
   const { enqueueSnackbar } = useSnackbar()
   const {
     collections,
-    selectionDialog,
-    handleToggleSelectionDialog,
     handleAddCollectionItem,
+    handleToggleManageDialog,
+    handleToggleSelectionDialog,
+    selectionDialog,
     validateItemUniqueName,
   } = useCollectionsStore()
 
@@ -36,6 +37,7 @@ const useCustom = () => {
   return {
     store: {
       collections,
+      handleToggleManageDialog,
       handleToggleSelectionDialog,
       selectionDialog,
       validateItemUniqueName,
