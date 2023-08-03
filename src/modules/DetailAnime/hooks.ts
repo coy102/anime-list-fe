@@ -3,10 +3,12 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 import { AnimeDetailQuery, useAnimeDetailLazyQuery } from '~/gqlcodegen/hooks/anime'
 import { MediaType } from '~/gqlcodegen/types'
+import { useCollectionsStore } from '~/stores/collections'
 
 const useCustom = () => {
   const params = useParams()
   const navigate = useNavigate()
+  const { selectionDialog, handleToggleSelectionDialog } = useCollectionsStore()
 
   const [anime, setAnime] = useState<AnimeDetailQuery['animeDetail']>(null)
 
@@ -39,6 +41,10 @@ const useCustom = () => {
   }, [params])
 
   return {
+    store: {
+      selectionDialog,
+      handleToggleSelectionDialog,
+    },
     data: {
       anime,
       loading,

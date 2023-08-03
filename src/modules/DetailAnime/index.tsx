@@ -3,6 +3,8 @@ import Footer from '~/components/Footer'
 import { fontSize } from '~/styles/theme'
 import { isEmpty } from '~/utils/not-lodash'
 
+import CollectionDialog from '../Collections/CollectionDialog'
+
 import Characters from './components/Characters'
 import Description from './components/Description'
 import DetailInfo from './components/DetailInfo'
@@ -12,7 +14,7 @@ import RelatedContent from './components/RelatedContent'
 import useCustom from './hooks'
 
 const DetailAnime = () => {
-  const { data } = useCustom()
+  const { store, data } = useCustom()
   const { anime, loading } = data
 
   if (loading) return <LoadingSkeleton />
@@ -40,6 +42,7 @@ const DetailAnime = () => {
         duration={anime?.duration || 0}
         episodes={anime?.episodes || 0}
         format={anime?.format || ''}
+        handleToggleSelectionDialog={() => store.handleToggleSelectionDialog(anime)}
         season={anime?.season || ''}
         seasonYear={anime?.seasonYear || 0}
         volumes={anime?.volumes || 0}
@@ -57,6 +60,7 @@ const DetailAnime = () => {
       {!isEmpty(relations) && <RelatedContent relations={relations} />}
       {!isEmpty(characters) && <Characters characters={characters} />}
 
+      <CollectionDialog />
       <Footer />
     </>
   )

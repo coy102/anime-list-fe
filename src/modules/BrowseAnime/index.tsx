@@ -3,11 +3,14 @@ import Grid from '@mui/material/Grid'
 import CoverCard from '~/components/CoverCard'
 import Loading from '~/components/Loading'
 
+import CollectionDialog from '../Collections/CollectionDialog'
+
 import useCustom from './hooks'
 import { WrapperStyled } from './styled'
 
 const BrowseAnime = () => {
   const {
+    store,
     data: { anime, loading },
   } = useCustom()
 
@@ -21,6 +24,7 @@ const BrowseAnime = () => {
               color={item?.coverImage?.color || ''}
               coverImage={item?.coverImage?.large || ''}
               genres={item?.genres || []}
+              handleClickAddButton={() => store.handleToggleSelectionDialog(item)}
               index={i}
               link={`/${item?.type?.toLowerCase()}/${item?.id}`}
               score={item?.averageScore || 0}
@@ -30,6 +34,7 @@ const BrowseAnime = () => {
         ))}
       </Grid>
       <Loading loading={loading} />
+      <CollectionDialog />
     </WrapperStyled>
   )
 }

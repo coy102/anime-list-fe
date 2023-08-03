@@ -12,6 +12,7 @@ interface Props {
   color?: string
   coverImage: string
   genres?: any[]
+  handleClickAddButton?: () => void
   imageHeight?: string | number
   imageWidth?: string | number
   index: number
@@ -25,6 +26,7 @@ const CoverCard = ({
   color = '',
   coverImage,
   genres = [],
+  handleClickAddButton,
   index,
   link,
   title,
@@ -36,7 +38,7 @@ const CoverCard = ({
   return (
     <ImageWrapperStyled>
       <HeadWrapperStyled>
-        <IconButtonStyled size="small">
+        <IconButtonStyled size="small" onClick={handleClickAddButton}>
           <AddIcon />
         </IconButtonStyled>
       </HeadWrapperStyled>

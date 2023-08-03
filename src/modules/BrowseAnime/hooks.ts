@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { AnimeListQuery, useAnimeListLazyQuery } from '~/gqlcodegen/hooks/anime'
+import { useCollectionsStore } from '~/stores/collections'
 import { debounce } from '~/utils/not-lodash'
 
 import { defaultFilterAnimeList } from './helper'
@@ -11,6 +12,8 @@ const useCustom = () => {
     items: [],
     pageInfo: {},
   })
+
+  const { handleToggleSelectionDialog } = useCollectionsStore()
 
   const [animeListLazyQuery, { loading }] = useAnimeListLazyQuery()
 
@@ -67,6 +70,9 @@ const useCustom = () => {
   }, [filter])
 
   return {
+    store: {
+      handleToggleSelectionDialog,
+    },
     data: {
       anime,
       loading,
