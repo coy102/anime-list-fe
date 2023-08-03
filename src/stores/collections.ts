@@ -33,6 +33,7 @@ interface DataState {
 }
 
 interface State extends DataState {
+  getCollection: (collectionId: string) => Collections | null
   getCollectionIndex: (collectionId: string) => number
   getCollections: () => Collections[]
   handleAddCollection: (collectionName: string) => void
@@ -68,6 +69,11 @@ export const useCollectionsStore = create<State>()(
   persist(
     (set, get) => ({
       ...initialState,
+      // Get detail collection
+      getCollection: (collectionId) => {
+        const collections = get().collections
+        return collections.find((f) => f.id === collectionId) || null
+      },
       // Get index of collection
       getCollectionIndex: (collectionId) => {
         const collections = get().collections
@@ -85,19 +91,29 @@ export const useCollectionsStore = create<State>()(
       },
       // Add new collection
       handleAddCollection: (collectionName) => {
+        const { handleToggleManageDialog, manageDialog } = get()
         setTimeout(() => {
-          get().handleToggleManageDialog()
-        }, 500)
+          handleToggleManageDialog()
+        }, 300)
 
         return set(
           produce((draft: Draft<DataState>) => {
-            draft.collections.push({
-              createdDate: dayjs().format('YYYY-MM-DD HH:mm'),
-              id: nanoid(),
-              isDefault: false,
-              items: [],
-              name: collectionName,
-            })
+            const collectionIndex = draft.collections.findIndex(
+              (f) => f.id === manageDialog.collectionId,
+            )
+
+            if (collectionIndex === -1) {
+              draft.collections.push({
+                createdDate: dayjs().format('YYYY-MM-DD HH:mm'),
+                id: nanoid(),
+                isDefault: false,
+                items: [],
+                name: collectionName,
+              })
+              return
+            }
+
+            draft.collections[collectionIndex].name = collectionName
           }),
         )
       },
@@ -178,10 +194,8 @@ export const useCollectionsStore = create<State>()(
           produce((draft: Draft<DataState>) => {
             // when collection param is not empty
             // set into state manage collection
-            if (!isEmpty(collection)) {
-              draft.manageDialog.collectionId = collection?.id || ''
-              draft.manageDialog.collectionName = collection?.name || ''
-            }
+            draft.manageDialog.collectionId = collection?.id || ''
+            draft.manageDialog.collectionName = collection?.name || ''
 
             draft.manageDialog.isOpen = !draft.manageDialog.isOpen
           }),

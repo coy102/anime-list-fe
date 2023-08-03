@@ -5,15 +5,15 @@ import { useCollectionsStore } from '~/stores/collections'
 import { isEmpty } from '~/utils/not-lodash'
 
 const useCustom = () => {
-  const [collectionName, setCollectionName] = useState('')
-  const [error, setError] = useState('')
-
   const {
     manageDialog,
     handleAddCollection,
     validateCollectionUniqueName,
     handleToggleManageDialog,
   } = useCollectionsStore()
+
+  const [collectionName, setCollectionName] = useState(manageDialog.collectionName)
+  const [error, setError] = useState('')
 
   const handleSave = useCallback(
     (e) => {
@@ -55,15 +55,12 @@ const useCustom = () => {
   const handleCloseAndReset = useCallback(() => {
     handleToggleManageDialog()
 
-    setTimeout(() => {
-      setCollectionName('')
-      setError('')
-    }, 500)
+    setCollectionName('')
+    setError('')
   }, [])
 
   useEffect(() => {
     if (!manageDialog?.isOpen) return
-    if (!manageDialog?.collectionName) return
 
     setCollectionName(manageDialog.collectionName)
   }, [manageDialog])

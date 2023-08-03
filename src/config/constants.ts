@@ -17,4 +17,4 @@ export const DEFAULT_COLLECTIONS = [DEFAULT_ITEM_COLLECTIONS]
 
 export type Collections = typeof DEFAULT_ITEM_COLLECTIONS
 
-export const CHARACTER_ONLY_PATTERN = /^[A-Za-z0-9\-_]+$/
+export const CHARACTER_ONLY_PATTERN = /^[A-Za-z0-9\s]+$/

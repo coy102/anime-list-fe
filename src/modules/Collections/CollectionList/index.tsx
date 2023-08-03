@@ -1,6 +1,7 @@
 import { memo } from 'react'
 
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
+import EditIcon from '@mui/icons-material/Edit'
 import { Button, IconButton, Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 
@@ -32,13 +33,16 @@ const CollectionList = () => {
           <CoverItem
             renderAction={
               <Box py={3}>
+                <IconButton size="small" onClick={() => store.handleToggleManageDialog(item)}>
+                  <EditIcon fontSize="small" />
+                </IconButton>
                 <IconButton size="small" onClick={store.handleToggleDeleteDialog(item.id)}>
-                  <DeleteRoundedIcon />
+                  <DeleteRoundedIcon color="error" fontSize="small" />
                 </IconButton>
               </Box>
             }
             coverImage={item?.items[0]?.cover || ''}
-            imageHeight={50}
+            imageHeight={80}
             imageWidth={50}
             key={item.id}
             link={`/collection/${item.id}`}

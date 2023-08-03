@@ -28,10 +28,12 @@ const AlertDialog = ({ handleClikOk, handleToggle, isOpen, message }: Props) => 
           <DialogContentText id="alert-dialog-description">{message}</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button color="error" size="small" variant="contained" onClick={handleToggle}>
+          <Button size="small" onClick={handleToggle}>
             Cancel
           </Button>
-          <Button onClick={handleClikOk}>Ok</Button>
+          <Button color="error" variant="contained" onClick={handleClikOk}>
+            Ok
+          </Button>
         </DialogActions>
       </Dialog>
     </>
