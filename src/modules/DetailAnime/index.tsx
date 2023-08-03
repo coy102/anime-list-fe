@@ -1,4 +1,5 @@
 import CoverImage from '~/components/CoverImage'
+import Footer from '~/components/Footer'
 import { fontSize } from '~/styles/theme'
 import { isEmpty } from '~/utils/not-lodash'
 
@@ -6,6 +7,7 @@ import Characters from './components/Characters'
 import Description from './components/Description'
 import DetailInfo from './components/DetailInfo'
 import HeaderDetail from './components/HeaderDetail'
+import LoadingSkeleton from './components/LoadingSkeleton'
 import RelatedContent from './components/RelatedContent'
 import useCustom from './hooks'
 
@@ -13,7 +15,7 @@ const DetailAnime = () => {
   const { data } = useCustom()
   const { anime, loading } = data
 
-  if (loading) return <span>loading...</span>
+  if (loading) return <LoadingSkeleton />
 
   const relations = anime?.relations?.edges
   const characters = anime?.characterPreview?.edges
@@ -54,6 +56,8 @@ const DetailAnime = () => {
 
       {!isEmpty(relations) && <RelatedContent relations={relations} />}
       {!isEmpty(characters) && <Characters characters={characters} />}
+
+      <Footer />
     </>
   )
 }
