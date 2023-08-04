@@ -13,10 +13,10 @@ import { TitleWrapperStyled, TitleStyled, ImageStyled } from './style'
 interface Props {
   color?: string
   coverImage: string
-  'data-testid': string
   genres?: any[]
   imageHeight?: string | number
   imageWidth?: string | number
+  index?: number | string
   score: number
   subTitleFontSize?: string | number
   subtitle?: string
@@ -28,10 +28,10 @@ interface Props {
 const CoverImage = ({
   color = '',
   coverImage,
-  'data-testid': testid,
   genres = [],
   imageHeight = COVER_SIZE.HEIGHT,
   imageWidth = '100%',
+  index,
   subtitle,
   subTitleFontSize = fontSize[10],
   title,
@@ -40,11 +40,11 @@ const CoverImage = ({
   score,
 }: Props) => {
   return (
-    <Box position="relative">
+    <Box data-testid={`cover-image-wrapper-${index}`} position="relative">
       {coverImage && (
         <ImageStyled
           alt=""
-          data-testid={testid}
+          data-testid={`cover-image-src-${index}`}
           effect="blur"
           height={imageHeight}
           src={coverImage || ''}
@@ -52,26 +52,48 @@ const CoverImage = ({
         />
       )}
 
-      {!coverImage && <Box height={imageHeight} width={imageWidth} />}
+      {!coverImage && (
+        <Box
+          data-testid={`cover-image-placeholder-${index}`}
+          height={imageHeight}
+          width={imageWidth}
+        />
+      )}
 
       <TitleWrapperStyled>
         <Box alignItems="center" display="flex" width="100%">
-          <Box display="flex" flexGrow={1}>
+          <Box data-testid={`cover-image-genre-wrapper-${index}`} display="flex" flexGrow={1}>
             {genres?.slice(0, totalGenre).map((genre, idxGenre) => (
-              <Box key={`genre-tag-${idxGenre}`} mr={1}>
-                <Tag bgcolor={color} data-testid={`anime-genere-${idxGenre}`} label={genre || ''} />
+              <Box key={`genre-tag-${index}-${idxGenre}`} mr={1}>
+                <Tag
+                  bgcolor={color}
+                  data-testid={`cover-image-genre-${index}-${idxGenre}`}
+                  label={genre || ''}
+                />
               </Box>
             ))}
           </Box>
 
-          <Typography alignContent="end" alignItems="center" display="flex" fontSize={fontSize[12]}>
+          <Typography
+            alignContent="end"
+            alignItems="center"
+            data-testid={`cover-image-score-${index}`}
+            display="flex"
+            fontSize={fontSize[12]}
+          >
             <StarOutlineIcon fontSize="small" htmlColor={colors.yellow[100]} />
             {score}
           </Typography>
         </Box>
         <Box display="flex" flexDirection="column" pb={1}>
-          <TitleStyled fontSize={titleFontSize}>{title}</TitleStyled>
-          {subtitle && <TitleStyled fontSize={subTitleFontSize}>{subtitle}</TitleStyled>}
+          <TitleStyled data-testid={`cover-image-title-${index}`} fontSize={titleFontSize}>
+            {title}
+          </TitleStyled>
+          {subtitle && (
+            <TitleStyled data-testid={`cover-image-subtitle-${index}`} fontSize={subTitleFontSize}>
+              {subtitle}
+            </TitleStyled>
+          )}
         </Box>
       </TitleWrapperStyled>
     </Box>
