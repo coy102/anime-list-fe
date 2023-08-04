@@ -79,6 +79,14 @@ describe('~/stores/collections - useCollectionsStore - anime selection', () => {
     expect(afterSaved.manageDialog.isOpen).toBeFalsy()
   })
 
+  it('should return collections as list', () => {
+    const { result } = renderHook(() => useCollectionsStore())
+
+    const collections = result.current.getCollections()
+
+    expect(collections).toEqual([dummy.newCollection])
+  })
+
   it('should open manage dialog collection to edit "My Collection"', () => {
     const { result } = renderHook(() => useCollectionsStore())
 

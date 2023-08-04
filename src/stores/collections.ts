@@ -44,7 +44,6 @@ interface Actions {
   handleAddCollectionItem: (collectionId: string) => void
   handleDeleteCollection: () => void
   handleDeleteCollectionItem: (collectionId: string) => () => void
-  handleEditCollection: (collectionName: string, collectionId: string) => void
   handleToggleDeleteAnimeDialog: (animeId: number) => () => void
   handleToggleDeleteCollectionDialog: (collectionId?: string) => () => void
   handleToggleManageDialog: (collection?: Collections | null) => void
@@ -168,15 +167,6 @@ export const useCollectionsStore = create(
           draft.collections[collectionIndex].items.splice(itemIndex, 1)
           draft.deleteAnimeDialog.animeId = 0
           draft.deleteAnimeDialog.isOpen = false
-        })
-      },
-      // handle update collectionname
-      handleEditCollection: (collectionName, collectionId) => {
-        return set((draft) => {
-          const collectionIndex = draft.collections.findIndex((f) => f.id === collectionId)
-          if (collectionIndex !== -1) {
-            draft.collections[collectionIndex].name = collectionName
-          }
         })
       },
       handleToggleDeleteAnimeDialog: (animeId) => () => {
