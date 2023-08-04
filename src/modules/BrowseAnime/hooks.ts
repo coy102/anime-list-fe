@@ -1,48 +1,53 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { AnimeListQuery, useAnimeListLazyQuery } from '~/gqlcodegen/hooks/anime'
 import { useCollectionsStore } from '~/stores/collections'
-import { debounce } from '~/utils/not-lodash'
+import { debounce, isEmpty } from '~/utils/not-lodash'
 
 import { defaultFilterAnimeList } from './helper'
 
 const useCustom = () => {
-  const [filter, setFilter] = useState(defaultFilterAnimeList)
-  const [anime, setAnime] = useState<AnimeListQuery['animeList']>({
-    items: [],
-    pageInfo: {},
-  })
+  const pageRef = useRef(1)
+
+  const [filter] = useState(defaultFilterAnimeList)
 
   const { handleToggleSelectionDialog } = useCollectionsStore()
 
-  const [animeListLazyQuery, data] = useAnimeListLazyQuery()
-
-  const handleLoadAnimeList = useCallback(async () => {
-    const { data } = await animeListLazyQuery({
-      variables: filter,
-    })
-
-    if (!data) return
-
-    const response = data.animeList
-
-    if (response?.pageInfo?.currentPage === 1) {
-      setAnime(response)
-      return
-    }
-
-    setAnime((prev) => ({
-      pageInfo: response?.pageInfo || {},
-      items: [...(prev?.items || []), ...(response?.items || [])],
-    }))
-  }, [filter])
+  const [animeListLazyQuery, { data, fetchMore, loading }] = useAnimeListLazyQuery({
+    notifyOnNetworkStatusChange: true,
+  })
 
   const handeLoadMore = useCallback(() => {
-    setFilter((prev) => ({
-      ...prev,
-      page: prev.page + 1,
-    }))
-  }, [])
+    if (!isEmpty(fetchMore)) {
+      pageRef.current += 1
+
+      fetchMore({
+        variables: {
+          ...defaultFilterAnimeList,
+          page: pageRef.current,
+        },
+        updateQuery(previousQueryResult, { fetchMoreResult }) {
+          // when new result is undefined, return previous result
+          if (!fetchMoreResult) return previousQueryResult
+
+          // Merge previos result with new result
+          const result: AnimeListQuery = {
+            animeList: {
+              items: [
+                ...(previousQueryResult?.animeList?.items as any),
+                ...(fetchMoreResult.animeList?.items as any),
+              ],
+              pageInfo: fetchMoreResult?.animeList?.pageInfo as any,
+            },
+          }
+
+          return result
+        },
+      })
+    }
+  }, [fetchMore])
+
+  const anime = useMemo(() => data?.animeList, [data])
 
   // handle fetch more anime
   const handleScroll = debounce(() => {
@@ -55,18 +60,15 @@ const useCustom = () => {
   }, 500)
 
   useEffect(() => {
-    handleLoadAnimeList()
-  }, [filter])
-
-  useEffect(() => {
     window.addEventListener('scroll', handleScroll)
 
-    if (anime?.items?.length === 0) {
-      handleLoadAnimeList()
-      return
-    }
-
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    animeListLazyQuery({
+      variables: filter,
+    })
   }, [filter])
 
   return {
@@ -75,10 +77,7 @@ const useCustom = () => {
     },
     data: {
       anime,
-      loading: data.loading,
-    },
-    methods: {
-      handeLoadMore,
+      loading,
     },
   }
 }

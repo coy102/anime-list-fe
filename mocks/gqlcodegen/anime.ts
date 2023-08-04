@@ -1,7 +1,6 @@
-import { initialAnimeListResponseData } from './dummy/animeData'
-
 export const mockedAnimeListLazyQuery = jest.fn()
+export const mockedFetchMore = jest.fn()
 
-export const mockedUseAnimeListLazyQuery = jest
+export const useAnimeListLazyQuery = jest
   .fn()
-  .mockImplementation(() => [mockedAnimeListLazyQuery, initialAnimeListResponseData])
+  .mockImplementation(() => [mockedAnimeListLazyQuery, undefined])

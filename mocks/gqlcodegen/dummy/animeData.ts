@@ -1,5 +1,6 @@
 /* eslint-disable sort-keys */
 export const initialAnimeListResponseData = {
+  loading: false,
   data: {
     animeList: {
       pageInfo: {

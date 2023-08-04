@@ -1,4 +1,8 @@
-import { mockedAnimeListLazyQuery, mockedUseAnimeListLazyQuery } from '~/mocks/gqlcodegen/anime'
+import {
+  mockedAnimeListLazyQuery,
+  mockedFetchMore,
+  useAnimeListLazyQuery,
+} from '~/mocks/gqlcodegen/anime'
 import {
   mockedDefaultTinyColor,
   mockedDarken,
@@ -26,8 +30,7 @@ jest.mock('~/utils/localStorage', () => ({
 }))
 
 jest.mock('~/gqlcodegen/hooks/anime', () => ({
-  ...jest.requireActual('~/gqlcodegen/hooks/anime'),
-  useAnimeListLazyQuery: mockedUseAnimeListLazyQuery,
+  useAnimeListLazyQuery,
 }))
 
 export {
@@ -42,5 +45,6 @@ export {
   mockedToHexString,
   mockedGenerateAutoColor,
   mockedAnimeListLazyQuery,
-  mockedUseAnimeListLazyQuery,
+  useAnimeListLazyQuery,
+  mockedFetchMore,
 }
