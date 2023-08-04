@@ -12,7 +12,14 @@ interface Props {
 const Loading = ({ children, height = '', loading }: Props) => {
   if (loading) {
     return (
-      <Box alignItems="center" display="flex" height={height} justifyContent="center" mt={4}>
+      <Box
+        alignItems="center"
+        data-testid="loading"
+        display="flex"
+        height={height}
+        justifyContent="center"
+        mt={4}
+      >
         {<CircularProgress color="secondary" data-testid="cilcular-progress-loading" />}
       </Box>
     )

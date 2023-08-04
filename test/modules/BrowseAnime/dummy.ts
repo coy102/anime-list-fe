@@ -377,3 +377,22 @@ export const moreData = {
     },
   },
 }
+
+/* eslint-disable sort-keys */
+export const emptyAnimeList = {
+  loading: true,
+  data: {
+    animeList: {
+      pageInfo: {
+        total: 5000,
+        currentPage: 1,
+        lastPage: 500,
+        hasNextPage: true,
+        perPage: 10,
+        __typename: 'PageInfo',
+      },
+      items: [],
+      __typename: 'Page',
+    },
+  },
+}

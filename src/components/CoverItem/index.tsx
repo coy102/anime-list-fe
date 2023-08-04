@@ -40,7 +40,7 @@ const CoverItem = ({
   )
 
   return (
-    <CoverWrapperStyled>
+    <CoverWrapperStyled role="listitem">
       {!isEmpty(coverImage) && (
         <LazyLoadImage
           alt=""
