@@ -18,10 +18,10 @@ const Navbar = () => (
           />
         </ImgWrapper>
         <MenuWrapper>
-          <MenuLink data-testid="menu-link" to="/">
+          <MenuLink data-testid="menu-link-browse" to="/">
             Browse
           </MenuLink>
-          <MenuLink data-testid="menu-link" to="collections">
+          <MenuLink data-testid="menu-link-collections" to="collections">
             Collections
           </MenuLink>
         </MenuWrapper>
