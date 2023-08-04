@@ -1,6 +1,7 @@
 import { memo, useCallback } from 'react'
 
-import { Box, Typography } from '@mui/material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 import { colors, fontSize } from '~/styles/theme'

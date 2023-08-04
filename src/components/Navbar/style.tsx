@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 
-import { AppBar, Container } from '@mui/material'
+import AppBar from '@mui/material/AppBar'
+import Container from '@mui/material/Container'
 import { styled } from '@mui/material/styles'
 
 import { fontSize } from '~/styles/theme'

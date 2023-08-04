@@ -1,7 +1,8 @@
 import { memo } from 'react'
 
 import StarOutlineIcon from '@mui/icons-material/StarOutline'
-import { Box, Typography } from '@mui/material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 
 import { COVER_SIZE } from '~/config/constants'
 import { colors, fontSize } from '~/styles/theme'
