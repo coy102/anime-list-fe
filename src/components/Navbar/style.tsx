@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 
-import { AppBar, Container } from '@mui/material'
+import AppBar from '@mui/material/AppBar'
+import Container from '@mui/material/Container'
 import { styled } from '@mui/material/styles'
 
 import { fontSize } from '~/styles/theme'
@@ -19,7 +20,7 @@ export const MenuWrapper = styled('div')({
 })
 
 export const MenuLink = styled(Link)(({ theme }) => ({
-  '&:first-child': {
+  '&:first-of-type': {
     marginRight: 20,
   },
   color: theme.palette.common.white,

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import { Fab } from '@mui/material'
+import Fab from '@mui/material/Fab'
 import { styled } from '@mui/material/styles'
 
 import { fontSize } from '~/styles/theme'

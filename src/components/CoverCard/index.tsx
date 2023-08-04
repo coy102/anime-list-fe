@@ -56,10 +56,10 @@ const CoverCard = ({
         <CoverImage
           color={color}
           coverImage={coverImage}
-          data-testid={`cover-image-${index}`}
           genres={genres}
           imageHeight={imageHeight}
           imageWidth={imageWidth}
+          index={index}
           score={score}
           title={title}
           totalGenre={totalGenre}

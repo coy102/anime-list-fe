@@ -17,16 +17,21 @@ interface Props {
 const AlertDialog = ({ handleClikOk, handleToggle, isOpen, message }: Props) => {
   return (
     <>
-      <Dialog fullWidth maxWidth="xs" open={isOpen}>
-        <DialogTitle id="alert-dialog-title">Confirmation</DialogTitle>
+      <Dialog fullWidth data-testid="alert-dialog" maxWidth="xs" open={isOpen}>
+        <DialogTitle>Confirmation</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">{message}</DialogContentText>
+          <DialogContentText data-testid="alert-dialog-description">{message}</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button size="small" onClick={handleToggle}>
+          <Button data-testid="alert-cancel-btn" size="small" onClick={handleToggle}>
             Cancel
           </Button>
-          <Button color="error" variant="contained" onClick={handleClikOk}>
+          <Button
+            color="error"
+            data-testid="alert-ok-btn"
+            variant="contained"
+            onClick={handleClikOk}
+          >
             Ok
           </Button>
         </DialogActions>

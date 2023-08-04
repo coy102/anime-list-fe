@@ -11,13 +11,18 @@ describe('~/components/Navbar', () => {
       </MemoryRouter>,
     )
 
-    const nabar = screen.getByTestId('navbar')
-    expect(nabar).toBeInTheDocument()
+    const navbar = screen.getByTestId('navbar')
+    expect(navbar).toBeInTheDocument()
 
     const logoElement = screen.getByTestId('logo')
     expect(logoElement).toBeInTheDocument()
 
-    const collectionsLink = screen.getByTestId('menu-link')
+    const browseLink = screen.getByTestId('menu-link-browse')
+    expect(browseLink).toBeInTheDocument()
+    expect(browseLink.getAttribute('href')).toBe('/')
+    expect(browseLink).toHaveTextContent('Browse')
+
+    const collectionsLink = screen.getByTestId('menu-link-collections')
     expect(collectionsLink).toBeInTheDocument()
     expect(collectionsLink.getAttribute('href')).toBe('/collections')
     expect(collectionsLink).toHaveTextContent('Collections')

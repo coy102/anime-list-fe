@@ -27,7 +27,6 @@ const DetailAnime = () => {
       <CoverImage
         color={anime?.coverImage?.color || ''}
         coverImage={anime?.bannerImage || ''}
-        data-testid="banner-image"
         genres={anime?.genres || []}
         imageHeight={250}
         score={anime?.averageScore || 0}
