@@ -16,7 +16,7 @@ const BrowseAnime = () => {
 
   return (
     <WrapperStyled>
-      <h3>Explore Anime</h3>
+      <h3 data-testid="title-page">Explore Anime</h3>
       <Grid container spacing={2}>
         {anime?.items?.map((item, i) => (
           <Grid item data-test-id={`anime-card-${i}`} key={`card-${i}`} xs={6}>

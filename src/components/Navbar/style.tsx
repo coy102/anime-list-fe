@@ -19,7 +19,7 @@ export const MenuWrapper = styled('div')({
 })
 
 export const MenuLink = styled(Link)(({ theme }) => ({
-  '&:first-child': {
+  '&:first-of-type': {
     marginRight: 20,
   },
   color: theme.palette.common.white,
