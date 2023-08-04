@@ -22,3 +22,7 @@ export const capitalize = (string) => {
 
 export const isEmpty = (obj) =>
   [Object, Array].includes((obj || {}).constructor) && !Object.entries(obj || {}).length
+
+export const kebabCase = (string) => {
+  return string.toLowerCase().replace(/\s+|_+/g, '-')
+}

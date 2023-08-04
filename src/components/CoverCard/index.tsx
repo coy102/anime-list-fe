@@ -1,6 +1,7 @@
 import { memo } from 'react'
 
 import AddIcon from '@mui/icons-material/Add'
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 
 import { COVER_SIZE } from '~/config/constants'
 
@@ -13,6 +14,7 @@ interface Props {
   coverImage: string
   genres?: any[]
   handleClickAddButton?: () => void
+  handleClickRemoveButton?: () => void
   imageHeight?: string | number
   imageWidth?: string | number
   index: number
@@ -26,7 +28,8 @@ const CoverCard = ({
   color = '',
   coverImage,
   genres = [],
-  handleClickAddButton,
+  handleClickAddButton = undefined,
+  handleClickRemoveButton = undefined,
   index,
   link,
   title,
@@ -38,9 +41,16 @@ const CoverCard = ({
   return (
     <ImageWrapperStyled>
       <HeadWrapperStyled>
-        <IconButtonStyled size="small" onClick={handleClickAddButton}>
-          <AddIcon />
-        </IconButtonStyled>
+        {handleClickAddButton && (
+          <IconButtonStyled size="small" onClick={handleClickAddButton}>
+            <AddIcon />
+          </IconButtonStyled>
+        )}
+        {handleClickRemoveButton && (
+          <IconButtonStyled size="small" onClick={handleClickRemoveButton}>
+            <DeleteRoundedIcon color="error" />
+          </IconButtonStyled>
+        )}
       </HeadWrapperStyled>
       <LinkStyled to={link}>
         <CoverImage

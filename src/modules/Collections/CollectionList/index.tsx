@@ -36,7 +36,10 @@ const CollectionList = () => {
                 <IconButton size="small" onClick={() => store.handleToggleManageDialog(item)}>
                   <EditIcon fontSize="small" />
                 </IconButton>
-                <IconButton size="small" onClick={store.handleToggleDeleteDialog(item.id)}>
+                <IconButton
+                  size="small"
+                  onClick={store.handleToggleDeleteCollectionDialog(item.id)}
+                >
                   <DeleteRoundedIcon color="error" fontSize="small" />
                 </IconButton>
               </Box>
@@ -45,7 +48,7 @@ const CollectionList = () => {
             imageHeight={80}
             imageWidth={50}
             key={item.id}
-            link={`/collection/${item.id}`}
+            link={`/collections/${item.id}`}
             subTitle={`${item?.items?.length} collections`}
             title={item.name}
           />
@@ -55,7 +58,7 @@ const CollectionList = () => {
           message="
           Are you sure you want to delete this collection? everything inside will be lost"
           handleClikOk={store.handleDeleteCollection}
-          handleToggle={store.handleToggleDeleteDialog()}
+          handleToggle={store.handleToggleDeleteCollectionDialog()}
           isOpen={store.deleteDialog.isOpen}
         />
 

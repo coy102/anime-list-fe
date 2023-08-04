@@ -4,7 +4,7 @@ const useCustom = () => {
   const {
     collections,
     deleteDialog,
-    handleToggleDeleteDialog,
+    handleToggleDeleteCollectionDialog,
     handleDeleteCollection,
     handleToggleManageDialog,
   } = useCollectionsStore()
@@ -14,7 +14,7 @@ const useCustom = () => {
       collections,
       deleteDialog,
       handleDeleteCollection,
-      handleToggleDeleteDialog,
+      handleToggleDeleteCollectionDialog,
       handleToggleManageDialog,
     },
   }

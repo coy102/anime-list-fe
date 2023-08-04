@@ -1,22 +1,28 @@
 import dayjs from 'dayjs'
 import { produce, Draft } from 'immer'
-import { nanoid } from 'nanoid'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
 import { Collections, DEFAULT_COLLECTIONS } from '~/config/constants'
 import { MediaType } from '~/gqlcodegen/types'
-import { isEmpty } from '~/utils/not-lodash'
+import { isEmpty, kebabCase } from '~/utils/not-lodash'
 
 interface AnimeState {
+  color: string
   cover: string
+  genres: string[]
   id: number
+  score: number
   title: string
   type: MediaType
 }
 
 interface DataState {
   collections: Collections[]
+  deleteAnimeDialog: {
+    animeId: string
+    isOpen: boolean
+  }
   deleteDialog: {
     collectionId: string
     isOpen: boolean
@@ -33,15 +39,15 @@ interface DataState {
 }
 
 interface State extends DataState {
-  getCollection: (collectionId: string) => Collections | null
   getCollectionIndex: (collectionId: string) => number
   getCollections: () => Collections[]
   handleAddCollection: (collectionName: string) => void
   handleAddCollectionItem: (collectionId: string) => void
   handleDeleteCollection: () => void
-  handleDeleteCollectionItem: (collectionId: string, animeId: number) => void
+  handleDeleteCollectionItem: (collectionId: string) => () => void
   handleEditCollection: (collectionName: string, collectionId: string) => void
-  handleToggleDeleteDialog: (collectionId?: string) => () => void
+  handleToggleDeleteAnimeDialog: (collectionId?: string) => () => void
+  handleToggleDeleteCollectionDialog: (collectionId?: string) => () => void
   handleToggleManageDialog: (collection?: Collections | null) => void
   handleToggleSelectionDialog: (anime: any) => void
   validateCollectionUniqueName: (collectionName: string) => boolean
@@ -50,6 +56,10 @@ interface State extends DataState {
 
 const initialState: DataState = {
   collections: DEFAULT_COLLECTIONS,
+  deleteAnimeDialog: {
+    animeId: '',
+    isOpen: false,
+  },
   deleteDialog: {
     collectionId: '',
     isOpen: false,
@@ -69,11 +79,6 @@ export const useCollectionsStore = create<State>()(
   persist(
     (set, get) => ({
       ...initialState,
-      // Get detail collection
-      getCollection: (collectionId) => {
-        const collections = get().collections
-        return collections.find((f) => f.id === collectionId) || null
-      },
       // Get index of collection
       getCollectionIndex: (collectionId) => {
         const collections = get().collections
@@ -105,7 +110,7 @@ export const useCollectionsStore = create<State>()(
             if (collectionIndex === -1) {
               draft.collections.push({
                 createdDate: dayjs().format('YYYY-MM-DD HH:mm'),
-                id: nanoid(),
+                id: kebabCase(collectionName),
                 isDefault: false,
                 items: [],
                 name: collectionName,
@@ -147,19 +152,21 @@ export const useCollectionsStore = create<State>()(
         )
       },
       // Delete anime from collection
-      handleDeleteCollectionItem: (collectionId, animeId) => {
+      handleDeleteCollectionItem: (collectionId) => () => {
         return set(
           produce((draft: Draft<DataState>) => {
+            const { deleteAnimeDialog } = get()
             const collectionIndex = draft.collections.findIndex((f) => f.id === collectionId)
             // Delete if collection index is exist
             if (collectionIndex !== -1) {
               const itemIndex = draft.collections[collectionIndex].items.findIndex(
-                (item) => item.id === animeId,
+                (item) => item.id === deleteAnimeDialog.animeId,
               )
 
               // delete anime if exist
               if (itemIndex !== -1) {
                 draft.collections[collectionIndex].items.splice(itemIndex, 1)
+                draft.deleteAnimeDialog.isOpen = false
               }
             }
           }),
@@ -177,8 +184,19 @@ export const useCollectionsStore = create<State>()(
           }),
         )
       },
+      // Handle toggle open/close delete anime from collection
+      handleToggleDeleteAnimeDialog:
+        (animeId = '') =>
+        () => {
+          return set(
+            produce((draft: Draft<DataState>) => {
+              draft.deleteAnimeDialog.animeId = animeId
+              draft.deleteAnimeDialog.isOpen = !draft.deleteAnimeDialog.isOpen
+            }),
+          )
+        },
       // Handle toggle open/close delete confirmation dialog
-      handleToggleDeleteDialog:
+      handleToggleDeleteCollectionDialog:
         (collectionId = '') =>
         () => {
           return set(
@@ -208,8 +226,11 @@ export const useCollectionsStore = create<State>()(
             // If not empty assign to selectionDialog.anime
             if (!isEmpty(anime)) {
               const newAnime: AnimeState = {
+                color: anime.coverImage.color,
                 cover: anime.coverImage.large,
+                genres: anime.genres,
                 id: anime.id,
+                score: anime.averageScore,
                 title: anime.title.romaji,
                 type: anime.type,
               }

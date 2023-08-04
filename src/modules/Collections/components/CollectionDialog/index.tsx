@@ -65,7 +65,7 @@ const CollectionDialog = () => {
                 imageHeight={50}
                 imageWidth={50}
                 key={item.id}
-                link={`/collection/${item.id}`}
+                link={`/collections/${item.id}`}
                 subTitle={`${item?.items?.length} collections`}
                 title={item.name}
               />

@@ -17,12 +17,7 @@ interface Props {
 const AlertDialog = ({ handleClikOk, handleToggle, isOpen, message }: Props) => {
   return (
     <>
-      <Dialog
-        aria-describedby="alert-dialog-description"
-        aria-labelledby="alert-dialog-title"
-        open={isOpen}
-        onClose={handleToggle}
-      >
+      <Dialog fullWidth maxWidth="xs" open={isOpen}>
         <DialogTitle id="alert-dialog-title">Confirmation</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">{message}</DialogContentText>
