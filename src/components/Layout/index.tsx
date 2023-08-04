@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 
 import publicRoute from '~/routes/publicRoute'
 
-import BottomNav from '../BottomNav'
+import Navbar from '../Navbar'
 
 import { MobileContainer } from './style'
 
@@ -11,6 +11,7 @@ const PublicLayout = () => {
   return (
     <>
       <MobileContainer>
+        <Navbar />
         <Suspense>
           <Routes>
             {publicRoute.map(({ id, path, component: Component }) => (
@@ -19,7 +20,6 @@ const PublicLayout = () => {
             <Route element={<Navigate to="/404" />} path="*" />
           </Routes>
         </Suspense>
-        <BottomNav />
       </MobileContainer>
     </>
   )

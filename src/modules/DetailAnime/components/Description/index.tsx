@@ -3,9 +3,9 @@ import { memo } from 'react'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
+import DOMPurify from 'dompurify'
 
 import { fontSize } from '~/styles/theme'
-import { htmlClean } from '~/utils/html'
 
 interface Props {
   description: string
@@ -21,13 +21,14 @@ const Description = ({ description }: Props) => {
           </Typography>
 
           <Box
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(description),
+            }}
             className="responsive-scroll"
             fontSize={fontSize[14]}
             maxHeight={200}
             overflow="auto"
-          >
-            {htmlClean(description)}
-          </Box>
+          />
         </Box>
       </Card>
     </Box>

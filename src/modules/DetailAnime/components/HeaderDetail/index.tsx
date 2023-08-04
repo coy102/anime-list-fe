@@ -15,6 +15,7 @@ interface Props {
   duration: number
   episodes: number
   format: string
+  handleToggleSelectionDialog: () => void
   season: string
   seasonYear: number
   volumes: number
@@ -25,6 +26,7 @@ const HeaderDetail = ({
   duration,
   episodes,
   format,
+  handleToggleSelectionDialog,
   season,
   seasonYear,
   volumes,
@@ -54,7 +56,13 @@ const HeaderDetail = ({
               )}
             </Box>
 
-            <Button size="small" startIcon={<AddIcon />} sx={{ ml: 1 }} variant="outlined">
+            <Button
+              size="small"
+              startIcon={<AddIcon />}
+              sx={{ ml: 1 }}
+              variant="outlined"
+              onClick={handleToggleSelectionDialog}
+            >
               Collection
             </Button>
           </Box>

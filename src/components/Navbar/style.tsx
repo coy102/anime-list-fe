@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { AppBar, Container } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
+import { fontSize } from '~/styles/theme'
+
 export const NavContainer = styled(Container)({
   display: 'flex',
   alignItems: 'center',
@@ -17,7 +19,11 @@ export const MenuWrapper = styled('div')({
 })
 
 export const MenuLink = styled(Link)(({ theme }) => ({
+  '&:first-child': {
+    marginRight: 20,
+  },
   color: theme.palette.common.white,
+  fontSize: fontSize[14],
   fontWeight: 'bold',
   textDecoration: 'none',
 }))

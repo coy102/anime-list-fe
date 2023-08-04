@@ -4,7 +4,7 @@ import { Box, Typography } from '@mui/material'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 import { colors, fontSize } from '~/styles/theme'
-import { capitalize } from '~/utils/not-lodash'
+import { capitalize, isEmpty } from '~/utils/not-lodash'
 
 import { CoverWrapperStyled, RelationTitleStyled, TitleLinkStyled } from './style'
 
@@ -14,6 +14,7 @@ interface Props {
   imageHeight?: string | number
   imageWidth?: string | number
   link?: string
+  renderAction?: React.ReactNode
   subTitle: string
   title: string
 }
@@ -26,6 +27,7 @@ const CoverItem = ({
   link = '',
   subTitle,
   title,
+  renderAction,
 }: Props) => {
   const linkClickHandler = useCallback(
     (e) => {
@@ -37,8 +39,8 @@ const CoverItem = ({
   )
 
   return (
-    <TitleLinkStyled to={link} onClick={linkClickHandler}>
-      <CoverWrapperStyled>
+    <CoverWrapperStyled>
+      {!isEmpty(coverImage) && (
         <LazyLoadImage
           alt=""
           effect="blur"
@@ -46,16 +48,24 @@ const CoverItem = ({
           src={coverImage || ''}
           width={imageWidth}
         />
-        <Box display="flex" flexDirection="column" p={2}>
-          <Typography color={colors.primary[100]} fontSize={fontSize[12]}>
+      )}
+
+      {isEmpty(coverImage) && (
+        <Box bgcolor={colors.primary[100]} height={imageHeight} width={imageWidth} />
+      )}
+      <Box display="flex" flexDirection="column" flexGrow={1} p={2}>
+        <TitleLinkStyled to={link} onClick={linkClickHandler}>
+          <Typography color={colors.primary[100]} fontSize={fontSize[16]}>
             {capitalize(title)}
           </Typography>
+
           <Box width={contentWidth}>
             <RelationTitleStyled>{subTitle}</RelationTitleStyled>
           </Box>
-        </Box>
-      </CoverWrapperStyled>
-    </TitleLinkStyled>
+        </TitleLinkStyled>
+      </Box>
+      {renderAction}
+    </CoverWrapperStyled>
   )
 }
 export default memo(CoverItem)

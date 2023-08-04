@@ -27,7 +27,9 @@ export const TitleLinkStyled = styled(Link)(() => ({
 }))
 
 export const CoverWrapperStyled = styled('div')(({ theme }) => ({
+  alignItems: 'start',
   backgroundColor: theme.palette.background.paper,
   display: 'flex',
-  marginRight: theme.spacing(3),
+  marginBottom: theme.spacing(2),
+  marginRight: theme.spacing(2),
 }))

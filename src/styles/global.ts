@@ -1,7 +1,7 @@
 /* eslint-disable sort-keys */
 import { css } from '@emotion/react'
 
-import theme, { colors } from './theme'
+import theme, { colors, fontSize } from './theme'
 
 const globalCss = css({
   '#root': {
@@ -27,6 +27,11 @@ const globalCss = css({
   'html, body': {
     margin: 0,
     padding: 0,
+  },
+  '.link': {
+    textDecoration: 'none',
+    color: 'inherit',
+    fontSize: fontSize[12],
   },
   '.responsive-scroll': {
     msOverflowStyle: 'none',
