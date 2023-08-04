@@ -15,7 +15,7 @@ const useCustom = () => {
 
   const { handleToggleSelectionDialog } = useCollectionsStore()
 
-  const [animeListLazyQuery, { loading }] = useAnimeListLazyQuery()
+  const [animeListLazyQuery, data] = useAnimeListLazyQuery()
 
   const handleLoadAnimeList = useCallback(async () => {
     const { data } = await animeListLazyQuery({
@@ -75,7 +75,7 @@ const useCustom = () => {
     },
     data: {
       anime,
-      loading,
+      loading: data.loading,
     },
     methods: {
       handeLoadMore,
