@@ -4,6 +4,7 @@ import { MemoryRouter } from 'react-router'
 
 import DetailAnime from '~/modules/DetailAnime'
 import { mockedAnimeDetailLazyQuery, useAnimeDetailLazyQuery } from '~/test/mocks'
+import { capitalize } from '~/utils/not-lodash'
 
 import * as dummy from './dummy'
 
@@ -171,5 +172,81 @@ describe('~/modules/DetailAnime - ANIME type', () => {
     const anime = dummy.responseData.data.animeDetail
 
     expect(descWithin.getByTestId('media-desc-text').innerHTML).toContain(anime.description)
+  })
+
+  it('should render RelatedContent correctly', () => {
+    render(
+      <MemoryRouter>
+        <DetailAnime />
+      </MemoryRouter>,
+    )
+
+    const relatedContent = screen.getByTestId('related-media-wrapper')
+    expect(relatedContent).toBeInTheDocument()
+
+    const relatedContentWithin = within(relatedContent)
+
+    const relatedMediaList = relatedContentWithin.getAllByRole('listitem')
+
+    const relations = dummy.responseData.data.animeDetail.relations.edges
+
+    expect(relatedMediaList).toHaveLength(5)
+
+    relatedMediaList.forEach((_, i) => {
+      const coverItem = relatedContentWithin.getByTestId(`cover-item-wrapper-${i}`)
+      const coverContentWithin = within(coverItem)
+
+      const relation = relations[i]
+
+      expect(coverContentWithin.getByTestId(`cover-item-src-${i}`)).toHaveAttribute(
+        'src',
+        relation.node.coverImage.medium,
+      )
+
+      expect(coverContentWithin.getByTestId(`cover-item-title-${i}`).textContent).toContain(
+        capitalize(relation.relationType),
+      )
+      expect(coverContentWithin.getByTestId(`cover-item-subtitle-${i}`).textContent).toContain(
+        relation.node.title.romaji,
+      )
+    })
+  })
+
+  it('should render Characters correctly', () => {
+    render(
+      <MemoryRouter>
+        <DetailAnime />
+      </MemoryRouter>,
+    )
+
+    const charContent = screen.getByTestId('character-media-wrapper')
+    expect(charContent).toBeInTheDocument()
+
+    const contentWithin = within(charContent)
+
+    const mediaList = contentWithin.getAllByRole('listitem')
+
+    const relations = dummy.responseData.data.animeDetail.relations.edges
+
+    expect(mediaList).toHaveLength(10)
+
+    mediaList.forEach((_, i) => {
+      const coverItem = contentWithin.getByTestId(`cover-item-wrapper-${i}`)
+      const coverContentWithin = within(coverItem)
+
+      const relation = relations[i]
+
+      expect(coverContentWithin.getByTestId(`cover-item-src-${i}`)).toHaveAttribute(
+        'src',
+        relation.node.coverImage.medium,
+      )
+
+      expect(coverContentWithin.getByTestId(`cover-item-title-${i}`).textContent).toContain(
+        capitalize(relation.relationType),
+      )
+      expect(coverContentWithin.getByTestId(`cover-item-subtitle-${i}`).textContent).toContain(
+        relation.node.title.romaji,
+      )
+    })
   })
 })
