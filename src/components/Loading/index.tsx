@@ -20,7 +20,7 @@ const Loading = ({ children, height = '', loading }: Props) => {
         justifyContent="center"
         mt={4}
       >
-        {<CircularProgress color="secondary" data-testid="cilcular-progress-loading" />}
+        <CircularProgress color="secondary" data-testid="cilcular-progress-loading" size={20} />
       </Box>
     )
   }
