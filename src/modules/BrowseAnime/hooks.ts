@@ -52,8 +52,8 @@ const useCustom = () => {
   // handle fetch more anime
   const handleScroll = debounce(() => {
     if (
-      window.innerHeight + document.documentElement.scrollTop ===
-      document.documentElement.offsetHeight
+      window.innerHeight + document.documentElement.scrollTop >=
+      document.documentElement.offsetHeight - 100
     ) {
       handeLoadMore()
     }
