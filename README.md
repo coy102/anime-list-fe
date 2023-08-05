@@ -1,3 +1,6 @@
+Cloned AniList using graphql and react.
+()[]
+
 ## **Using 📦**
 
 1. Clone Template
@@ -8,10 +11,26 @@
 yarn install
 ```
 
-3. Start Project
+3. Copy .env.example to .env
+
+4. Start dev
 
 ```
 yarn dev
+```
+
+## **Unit test ✍️**
+
+1. Run unit testing
+
+```
+yarn test
+```
+
+2. Run unit testing and coverage
+
+```
+yarn test:coverage
 ```
 
 ## **Options ✍️**
@@ -22,26 +41,14 @@ yarn dev
 yarn lint
 ```
 
-2. Fix lint
-
-```
-yarn lint:fix
-```
-
-3. Check prettier
-
-```
-yarn prettier
-```
-
-4. Fix prettier
-
-```
-yarn prettier:fix
-```
-
-5. Fix lint and prettier
+3. Fix lint and prettier
 
 ```
 yarn format
+```
+
+5. Graphql Codegen
+
+```
+yarn codegen
 ```
