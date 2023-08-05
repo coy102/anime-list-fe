@@ -22,7 +22,7 @@ const globalCss = css({
     cursor: 'pointer',
   },
   '*::-webkit-scrollbar-track': {
-    '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)',
+    WebkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
   },
   'html, body': {
     margin: 0,
@@ -38,7 +38,7 @@ const globalCss = css({
     '&::-webkit-scrollbar': {
       display: 'none',
     },
-    '-webkit-overflow-scrolling': 'touch',
+    WebkitOverflowScrolling: 'touch',
     [theme.breakpoints.up('md')]: {
       '&:hover, &:focus': {
         scrollbarWidth: 'auto',

@@ -14,6 +14,7 @@ interface Props {
   coverImage: string
   imageHeight?: string | number
   imageWidth?: string | number
+  index?: number
   link?: string
   renderAction?: React.ReactNode
   subTitle: string
@@ -25,6 +26,7 @@ const CoverItem = ({
   coverImage,
   imageHeight = 120,
   imageWidth = 90,
+  index = 0,
   link = '',
   subTitle,
   title,
@@ -40,10 +42,11 @@ const CoverItem = ({
   )
 
   return (
-    <CoverWrapperStyled>
+    <CoverWrapperStyled data-testid={`cover-item-wrapper-${index}`} role="listitem">
       {!isEmpty(coverImage) && (
         <LazyLoadImage
           alt=""
+          data-testid={`cover-item-src-${index}`}
           effect="blur"
           height={imageHeight}
           src={coverImage || ''}
@@ -52,15 +55,24 @@ const CoverItem = ({
       )}
 
       {isEmpty(coverImage) && (
-        <Box bgcolor={colors.primary[100]} height={imageHeight} width={imageWidth} />
+        <Box
+          bgcolor={colors.primary[100]}
+          data-testid={`cover-item-placeholder-${index}`}
+          height={imageHeight}
+          width={imageWidth}
+        />
       )}
       <Box display="flex" flexDirection="column" flexGrow={1} p={2}>
         <TitleLinkStyled to={link} onClick={linkClickHandler}>
-          <Typography color={colors.primary[100]} fontSize={fontSize[16]}>
+          <Typography
+            color={colors.primary[100]}
+            data-testid={`cover-item-title-${index}`}
+            fontSize={fontSize[16]}
+          >
             {capitalize(title)}
           </Typography>
 
-          <Box width={contentWidth}>
+          <Box data-testid={`cover-item-subtitle-${index}`} width={contentWidth}>
             <RelationTitleStyled>{subTitle}</RelationTitleStyled>
           </Box>
         </TitleLinkStyled>

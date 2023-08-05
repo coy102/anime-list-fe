@@ -89,7 +89,9 @@ export const useCollectionsStore = create(
       // handle manage collection (edit / add new collection)
       handleAddCollection: (collectionName) => {
         const { handleToggleManageDialog, manageDialog } = get()
-
+        setTimeout(() => {
+          handleToggleManageDialog()
+        }, 300)
         return set((draft) => {
           const collectionIndex = draft.collections.findIndex(
             (f) => f.id === manageDialog.collectionId,
@@ -108,10 +110,6 @@ export const useCollectionsStore = create(
             // update existing collection name
             draft.collections[collectionIndex].name = collectionName
           }
-
-          setTimeout(() => {
-            handleToggleManageDialog()
-          }, 300)
         })
       },
       // handle to insert anime into collections.items

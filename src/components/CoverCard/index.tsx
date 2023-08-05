@@ -39,20 +39,28 @@ const CoverCard = ({
   score,
 }: Props) => {
   return (
-    <ImageWrapperStyled>
-      <HeadWrapperStyled>
+    <ImageWrapperStyled data-testid={`cover-card-wrapper-${index}`} role="listitem">
+      <HeadWrapperStyled data-testid={`cover-card-head-${index}`}>
         {handleClickAddButton && (
-          <IconButtonStyled size="small" onClick={handleClickAddButton}>
+          <IconButtonStyled
+            data-testid={`cover-add-btn-${index}`}
+            size="small"
+            onClick={handleClickAddButton}
+          >
             <AddIcon />
           </IconButtonStyled>
         )}
         {handleClickRemoveButton && (
-          <IconButtonStyled size="small" onClick={handleClickRemoveButton}>
+          <IconButtonStyled
+            data-testid={`cover-delete-btn-${index}`}
+            size="small"
+            onClick={handleClickRemoveButton}
+          >
             <DeleteRoundedIcon color="error" />
           </IconButtonStyled>
         )}
       </HeadWrapperStyled>
-      <LinkStyled to={link}>
+      <LinkStyled data-testid={`cover-link-${index}`} to={link}>
         <CoverImage
           color={color}
           coverImage={coverImage}

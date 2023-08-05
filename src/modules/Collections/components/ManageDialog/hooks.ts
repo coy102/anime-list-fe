@@ -19,6 +19,7 @@ const useCustom = () => {
     (e) => {
       e.preventDefault()
       const value = collectionName.trim()
+
       if (isEmpty(value)) {
         setError('Collection name is required!')
         return
@@ -47,9 +48,7 @@ const useCustom = () => {
   const handleChangeInput = useCallback((e) => {
     setCollectionName(e.target.value)
 
-    setTimeout(() => {
-      setError('')
-    }, 500)
+    setError('')
   }, [])
 
   const handleCloseAndReset = useCallback(() => {

@@ -17,18 +17,19 @@ const DetailAnime = () => {
   const { store, data } = useCustom()
   const { anime, loading } = data
 
-  if (loading) return <LoadingSkeleton />
+  if (loading || isEmpty(anime)) return <LoadingSkeleton />
 
   const relations = anime?.relations?.edges
   const characters = anime?.characterPreview?.edges
 
   return (
-    <>
+    <div data-testid="detail-anime-wrapper">
       <CoverImage
         color={anime?.coverImage?.color || ''}
         coverImage={anime?.bannerImage || ''}
         genres={anime?.genres || []}
         imageHeight={250}
+        index="detail"
         score={anime?.averageScore || 0}
         subTitleFontSize={fontSize[12]}
         subtitle={anime?.title?.english || ''}
@@ -48,6 +49,7 @@ const DetailAnime = () => {
       />
 
       <DetailInfo
+        coverImage={anime?.coverImage?.large || ''}
         endDate={anime?.endDate || {}}
         source={anime?.source || ''}
         startDate={anime?.startDate || {}}
@@ -61,7 +63,7 @@ const DetailAnime = () => {
 
       <CollectionDialog />
       <Footer />
-    </>
+    </div>
   )
 }
 

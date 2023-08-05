@@ -6,7 +6,6 @@ import { ApolloProvider } from '@apollo/client'
 import { Global } from '@emotion/react'
 import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles'
-import { SnackbarProvider } from 'notistack'
 import ReactDOM from 'react-dom/client'
 
 import graphQLClient from '~/utils/apollo/client'
@@ -22,9 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <CssBaseline />
         <Global styles={globalCss} />
         <ApolloProvider client={graphQLClient}>
-          <SnackbarProvider>
-            <App />
-          </SnackbarProvider>
+          <App />
         </ApolloProvider>
       </MuiThemeProvider>
     </BrowserRouter>

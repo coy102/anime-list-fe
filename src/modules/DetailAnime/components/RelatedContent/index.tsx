@@ -11,7 +11,7 @@ interface Props {
 }
 
 const RelatedContent = ({ relations }: Props) => (
-  <Box px={1}>
+  <Box data-testid="related-media-wrapper" px={1}>
     <Box fontWeight="bold" mt={2} px={2}>
       Related
     </Box>
@@ -21,6 +21,7 @@ const RelatedContent = ({ relations }: Props) => (
           <CoverItem
             contentWidth={200}
             coverImage={r.node.coverImage.medium || ''}
+            index={i}
             key={`cover-item-${i}`}
             link={`/${r.node.type.toLowerCase()}/${r.node.id}`}
             subTitle={r.node.title?.romaji || ''}

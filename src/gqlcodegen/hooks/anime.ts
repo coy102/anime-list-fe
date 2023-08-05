@@ -4667,7 +4667,7 @@ export const AnimeDetailDocument = gql`
           }
         }
       }
-      characterPreview: characters(perPage: 106, sort: [ROLE, RELEVANCE, ID]) {
+      characterPreview: characters(perPage: 10, sort: [ROLE, RELEVANCE, ID]) {
         edges {
           id
           role

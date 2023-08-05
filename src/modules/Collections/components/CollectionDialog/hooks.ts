@@ -1,11 +1,8 @@
 import { useCallback } from 'react'
 
-import { useSnackbar } from 'notistack'
-
 import { useCollectionsStore } from '~/stores/collections'
 
 const useCustom = () => {
-  const { enqueueSnackbar } = useSnackbar()
   const {
     collections,
     handleAddCollectionItem,
@@ -23,13 +20,6 @@ const useCustom = () => {
         handleAddCollectionItem(collectionId)
         return
       }
-
-      enqueueSnackbar(`${selectionDialog.anime?.title} already exist!`, {
-        anchorOrigin: {
-          vertical: 'top',
-          horizontal: 'center',
-        },
-      })
     },
     [selectionDialog.anime],
   )

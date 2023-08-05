@@ -18,13 +18,24 @@ const CollectionDialog = () => {
   const { store, methods } = useCustom()
   return (
     <>
-      <Dialog fullWidth maxWidth="xs" open={store.selectionDialog.isOpen}>
+      <Dialog
+        fullWidth
+        data-testid="collection-dialog"
+        maxWidth="xs"
+        open={store.selectionDialog.isOpen}
+      >
         <DialogTitleStyled>
           <Box flexGrow={1}>
-            <Typography fontSize={fontSize[16]}>{store.selectionDialog.anime?.title}</Typography>
+            <Typography data-testid="collection-dialog-title" fontSize={fontSize[16]}>
+              {store.selectionDialog.anime?.title}
+            </Typography>
           </Box>
           <Box>
-            <IconButton size="small" onClick={() => store.handleToggleSelectionDialog(null)}>
+            <IconButton
+              data-testid="collection-dialog-close-button"
+              size="small"
+              onClick={() => store.handleToggleSelectionDialog(null)}
+            >
               <Close fontSize="small" />
             </IconButton>
           </Box>
@@ -36,6 +47,7 @@ const CollectionDialog = () => {
             </Typography>
             <Button
               color="secondary"
+              data-testid="collection-dialog-new-button"
               size="small"
               variant="contained"
               onClick={() => store.handleToggleManageDialog()}
@@ -44,15 +56,21 @@ const CollectionDialog = () => {
             </Button>
           </Box>
 
-          <Box className="responsive-scroll" height={300} overflow="auto">
-            {store.collections.map((item) => (
+          <Box
+            className="responsive-scroll"
+            data-testid="collection-list-wrapper"
+            height={300}
+            overflow="auto"
+          >
+            {store.collections.map((item, i) => (
               <CoverItem
                 renderAction={
                   <Box>
                     {!store.validateItemUniqueName(item.id) ? (
-                      <DoneIcon color="success" />
+                      <DoneIcon color="success" data-testid={`cover-item-done-icon-${i}`} />
                     ) : (
                       <IconButton
+                        data-testid={`cover-item-add-icon-${i}`}
                         size="small"
                         onClick={methods.handleClickAddToCollection(item.id)}
                       >
@@ -64,7 +82,8 @@ const CollectionDialog = () => {
                 coverImage={item?.items[0]?.cover || ''}
                 imageHeight={50}
                 imageWidth={50}
-                key={item.id}
+                index={i}
+                key={`cover-item-${i}`}
                 link={`/collections/${item.id}`}
                 subTitle={`${item?.items?.length} collections`}
                 title={item.name}

@@ -34,29 +34,30 @@ const HeaderDetail = ({
   return (
     <>
       <Box p={2}>
-        <Card sx={{ p: 2 }}>
+        <Card data-testid="detail-info-wrapper" sx={{ p: 4 }}>
           <Box alignItems="center" display="flex">
             <Box display="flex" flexDirection="column" flexGrow={1}>
               {season && (
-                <Typography fontWeight="bold">
+                <Typography data-testid="detail-season-text" fontWeight="bold">
                   {capitalize(season)} {seasonYear}
                 </Typography>
               )}
 
-              {format === 'ANIME' && (
-                <Typography flexGrow={1} fontSize={fontSize[12]}>
-                  {capitalize(format)} • {episodes} Ep • {formatTime(duration)}
+              {format === 'TV' && (
+                <Typography data-testid="detail-anime-text" flexGrow={1} fontSize={fontSize[12]}>
+                  {format} • {episodes} Ep • {formatTime(duration)}
                 </Typography>
               )}
 
               {format === 'MANGA' && (
-                <Typography flexGrow={1} fontSize={fontSize[12]}>
+                <Typography data-testid="detail-manga-text" flexGrow={1} fontSize={fontSize[12]}>
                   {capitalize(format)} • {chapters} Ch • {volumes} Vol.
                 </Typography>
               )}
             </Box>
 
             <Button
+              data-testid="detail-add-collection"
               size="small"
               startIcon={<AddIcon />}
               sx={{ ml: 1 }}

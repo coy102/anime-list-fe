@@ -7,20 +7,21 @@ import Box from '@mui/material/Box'
 
 import AlertDialog from '~/components/AlertDialog'
 import CoverItem from '~/components/CoverItem'
+import { useCollectionsStore } from '~/stores/collections'
 
 import ManageDialog from '../components/ManageDialog'
 
-import useCustom from './hooks'
-
 const CollectionList = () => {
-  const { store } = useCustom()
+  const store = useCollectionsStore()
+
   return (
     <>
-      <Box px={3}>
+      <Box data-testid="collection-list-wrapper-page" px={3}>
         <Box display="flex" my={3}>
           <Typography flexGrow={1}>My Collections</Typography>
           <Button
             color="secondary"
+            data-testid="add-collection-btn"
             size="small"
             variant="contained"
             onClick={() => store.handleToggleManageDialog()}
@@ -29,14 +30,19 @@ const CollectionList = () => {
           </Button>
         </Box>
 
-        {store.collections.map((item) => (
+        {store.collections.map((item, i) => (
           <CoverItem
             renderAction={
               <Box py={3}>
-                <IconButton size="small" onClick={() => store.handleToggleManageDialog(item)}>
+                <IconButton
+                  data-testid={`edit-btn-${i}`}
+                  size="small"
+                  onClick={() => store.handleToggleManageDialog(item)}
+                >
                   <EditIcon fontSize="small" />
                 </IconButton>
                 <IconButton
+                  data-testid={`delete-btn-${i}`}
                   size="small"
                   onClick={store.handleToggleDeleteCollectionDialog(item.id)}
                 >
@@ -47,13 +53,13 @@ const CollectionList = () => {
             coverImage={item?.items[0]?.cover || ''}
             imageHeight={80}
             imageWidth={50}
+            index={i}
             key={item.id}
             link={`/collections/${item.id}`}
             subTitle={`${item?.items?.length} collections`}
             title={item.name}
           />
         ))}
-
         <AlertDialog
           message="
           Are you sure you want to delete this collection? everything inside will be lost"
