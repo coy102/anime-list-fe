@@ -45,7 +45,7 @@ const CollectionDetail = () => {
         message="
           Are you sure you want to delete this anime?"
         handleClikOk={store.handleDeleteCollectionItem(data.collection?.id || '')}
-        handleToggle={store.handleToggleDeleteAnimeDialog()}
+        handleToggle={store.handleToggleDeleteAnimeDialog(0)}
         isOpen={store.deleteAnimeDialog.isOpen}
       />
 
