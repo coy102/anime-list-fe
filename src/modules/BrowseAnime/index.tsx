@@ -19,7 +19,13 @@ const BrowseAnime = () => {
       <h3 data-testid="title-page">Explore Anime</h3>
       <Grid container data-testid="grid-wrapper" spacing={2}>
         {anime?.items?.map((item, i) => (
-          <Grid item data-testid={`anime-card-${i}`} key={`card-${item?.id}`} role="listbox" xs={6}>
+          <Grid
+            item
+            data-testid={`anime-card-${i}`}
+            key={`card-${item?.id}-${i}`}
+            role="listbox"
+            xs={6}
+          >
             <CoverCard
               color={item?.coverImage?.color || ''}
               coverImage={item?.coverImage?.large || ''}

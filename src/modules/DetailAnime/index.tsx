@@ -17,7 +17,7 @@ const DetailAnime = () => {
   const { store, data } = useCustom()
   const { anime, loading } = data
 
-  if (loading) return <LoadingSkeleton />
+  if (loading || isEmpty(anime)) return <LoadingSkeleton />
 
   const relations = anime?.relations?.edges
   const characters = anime?.characterPreview?.edges
@@ -48,6 +48,7 @@ const DetailAnime = () => {
       />
 
       <DetailInfo
+        coverImage={anime?.coverImage?.large || ''}
         endDate={anime?.endDate || {}}
         source={anime?.source || ''}
         startDate={anime?.startDate || {}}
