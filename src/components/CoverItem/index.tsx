@@ -44,14 +44,16 @@ const CoverItem = ({
   return (
     <CoverWrapperStyled data-testid={`cover-item-wrapper-${index}`} role="listitem">
       {!isEmpty(coverImage) && (
-        <LazyLoadImage
-          alt=""
-          data-testid={`cover-item-src-${index}`}
-          effect="blur"
-          height={imageHeight}
-          src={coverImage || ''}
-          width={imageWidth}
-        />
+        <TitleLinkStyled to={link} onClick={linkClickHandler}>
+          <LazyLoadImage
+            alt=""
+            data-testid={`cover-item-src-${index}`}
+            effect="blur"
+            height={imageHeight}
+            src={coverImage || ''}
+            width={imageWidth}
+          />
+        </TitleLinkStyled>
       )}
 
       {isEmpty(coverImage) && (
