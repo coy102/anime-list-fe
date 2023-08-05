@@ -12,7 +12,7 @@ const useCustom = () => {
   const { selectionDialog, handleToggleSelectionDialog } = useCollectionsStore()
 
   const [animeDetailLazyQuery, responseData] = useAnimeDetailLazyQuery({
-    fetchPolicy: 'cache-first',
+    fetchPolicy: 'no-cache',
   })
 
   const anime = useMemo(() => responseData.data?.animeDetail, [responseData])
