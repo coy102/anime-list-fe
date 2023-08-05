@@ -1,5 +1,4 @@
 import { memo } from 'react'
-import { Link } from 'react-router-dom'
 
 import { Close } from '@mui/icons-material'
 import AddIcon from '@mui/icons-material/Add'
@@ -89,11 +88,6 @@ const CollectionDialog = () => {
                 title={item.name}
               />
             ))}
-          </Box>
-          <Box textAlign="center">
-            <Link className="link" to="/collections">
-              View collections...
-            </Link>
           </Box>
         </DialogContentStyled>
       </Dialog>
