@@ -14,8 +14,8 @@ export const ScrollContainerStyled = styled('div')(() => ({
 }))
 
 export const RelationTitleStyled = styled(Typography)({
-  '-webkit-box-orient': 'vertical',
-  '-webkit-line-clamp': 3,
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: 3,
   display: '-webkit-box',
   fontSize: fontSize[14],
   overflow: 'hidden',

@@ -396,3 +396,24 @@ export const emptyAnimeList = {
     },
   },
 }
+export const currentDate = '2023-08-04 17:00:01'
+
+export const collectionName1st = 'My Collections'
+export const collectionName2nd = 'Adventure Collections'
+
+export const collectionList = [
+  {
+    createdDate: '2023-08-04 17:00',
+    id: '20230804170001',
+    isDefault: false,
+    items: [],
+    name: collectionName1st,
+  },
+  {
+    createdDate: '2023-08-04 17:00',
+    id: '20230804170001',
+    isDefault: false,
+    items: [],
+    name: collectionName2nd,
+  },
+]

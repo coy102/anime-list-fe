@@ -62,14 +62,15 @@ const CollectionDialog = () => {
             height={300}
             overflow="auto"
           >
-            {store.collections.map((item) => (
+            {store.collections.map((item, i) => (
               <CoverItem
                 renderAction={
                   <Box>
                     {!store.validateItemUniqueName(item.id) ? (
-                      <DoneIcon color="success" />
+                      <DoneIcon color="success" data-testid={`cover-item-done-icon-${i}`} />
                     ) : (
                       <IconButton
+                        data-testid={`cover-item-add-icon-${i}`}
                         size="small"
                         onClick={methods.handleClickAddToCollection(item.id)}
                       >
@@ -81,7 +82,8 @@ const CollectionDialog = () => {
                 coverImage={item?.items[0]?.cover || ''}
                 imageHeight={50}
                 imageWidth={50}
-                key={item.id}
+                index={i}
+                key={`cover-item-${i}`}
                 link={`/collections/${item.id}`}
                 subTitle={`${item?.items?.length} collections`}
                 title={item.name}
