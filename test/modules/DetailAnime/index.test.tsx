@@ -226,7 +226,7 @@ describe('~/modules/DetailAnime - ANIME type', () => {
 
     const mediaList = contentWithin.getAllByRole('listitem')
 
-    const relations = dummy.responseData.data.animeDetail.relations.edges
+    const relations = dummy.responseData.data.animeDetail.characterPreview.edges
 
     expect(mediaList).toHaveLength(10)
 
@@ -238,14 +238,14 @@ describe('~/modules/DetailAnime - ANIME type', () => {
 
       expect(coverContentWithin.getByTestId(`cover-item-src-${i}`)).toHaveAttribute(
         'src',
-        relation.node.coverImage.medium,
+        relation.node.image.medium,
       )
 
       expect(coverContentWithin.getByTestId(`cover-item-title-${i}`).textContent).toContain(
-        capitalize(relation.relationType),
+        capitalize(relation.role),
       )
       expect(coverContentWithin.getByTestId(`cover-item-subtitle-${i}`).textContent).toContain(
-        relation.node.title.romaji,
+        relation.node.name.userPreferred,
       )
     })
   })
