@@ -23,12 +23,13 @@ const DetailAnime = () => {
   const characters = anime?.characterPreview?.edges
 
   return (
-    <>
+    <div data-testid="detail-anime-wrapper">
       <CoverImage
         color={anime?.coverImage?.color || ''}
         coverImage={anime?.bannerImage || ''}
         genres={anime?.genres || []}
         imageHeight={250}
+        index="detail"
         score={anime?.averageScore || 0}
         subTitleFontSize={fontSize[12]}
         subtitle={anime?.title?.english || ''}
@@ -62,7 +63,7 @@ const DetailAnime = () => {
 
       <CollectionDialog />
       <Footer />
-    </>
+    </div>
   )
 }
 

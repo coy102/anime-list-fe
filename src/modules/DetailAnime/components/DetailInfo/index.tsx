@@ -25,12 +25,12 @@ const DetailInfo = ({ coverImage, endDate, startDate, source, studios }: Props) 
 
   return (
     <Box p={2}>
-      <Card>
+      <Card data-testid="media-info-wrapper">
         <Box display="flex" p={2}>
           <Box pr={5}>
             <LazyLoadImage
               alt=""
-              data-testid="default-cover-image-src"
+              data-testid="media-info-src"
               effect="blur"
               height={120}
               src={coverImage || ''}
@@ -39,19 +39,28 @@ const DetailInfo = ({ coverImage, endDate, startDate, source, studios }: Props) 
           </Box>
           <Grid container spacing={2}>
             <Grid item xs={6}>
-              <InfoText label="Start Date" value={formatFriendlyDate(formatStartDate)} />
+              <InfoText
+                data-testid="media-info-start-date"
+                label="Start Date"
+                value={formatFriendlyDate(formatStartDate)}
+              />
             </Grid>
             <Grid item xs={6}>
               <InfoText
+                data-testid="media-info-end-date"
                 label="End Date"
                 value={endDate?.year ? formatFriendlyDate(formatEndDate) : '-'}
               />
             </Grid>
             <Grid item xs={6}>
-              <InfoText label="Studio" value={studio || '-'} />
+              <InfoText
+                data-testid="media-info-studio"
+                label="Studio"
+                value={capitalize(studio) || '-'}
+              />
             </Grid>
             <Grid item xs={6}>
-              <InfoText label="Source" value={capitalize(source)} />
+              <InfoText data-testid="media-info-source" label="Source" value={capitalize(source)} />
             </Grid>
           </Grid>
         </Box>

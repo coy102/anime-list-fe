@@ -14,7 +14,7 @@ interface Props {
 const Description = ({ description }: Props) => {
   return (
     <Box p={2}>
-      <Card sx={{ p: 2 }}>
+      <Card data-testid="media-desc-wrapper" sx={{ p: 2 }}>
         <Box display="flex" flexDirection="column">
           <Typography fontWeight="bold" py={2}>
             Synopsis
@@ -25,6 +25,7 @@ const Description = ({ description }: Props) => {
               __html: DOMPurify.sanitize(description),
             }}
             className="responsive-scroll"
+            data-testid="media-desc-text"
             fontSize={fontSize[14]}
             maxHeight={200}
             overflow="auto"
